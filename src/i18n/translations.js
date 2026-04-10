@@ -130,7 +130,7 @@ export const t = {
     contact: {
       label: 'contact',
       title: 'Let\'s talk',
-      desc: 'Open to internships, freelance work, or just talking shop. Email is best.',
+      desc: 'Open to opportunities, freelance work, or just talking shop. Email is best.',
       emailLabel: 'Email',
       phoneLabel: 'Phone',
       githubLabel: 'GitHub',
@@ -285,7 +285,7 @@ export const t = {
     contact: {
       label: 'contato',
       title: 'Vamos conversar',
-      desc: 'Aberto a estágios, freelas ou só trocar uma ideia sobre tecnologia. E-mail é o melhor jeito.',
+      desc: 'Aberto a oportunidades, freelas ou só trocar uma ideia sobre tecnologia. E-mail é o melhor jeito.',
       emailLabel: 'E-mail',
       phoneLabel: 'Telefone',
       githubLabel: 'GitHub',

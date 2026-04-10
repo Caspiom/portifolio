@@ -1,0 +1,134 @@
+.game-section {
+  background: var(--bg-secondary);
+}
+
+.game__desc {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+.game__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.game__hud {
+  width: 100%;
+  max-width: 560px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-bottom: none;
+  border-radius: 10px 10px 0 0;
+}
+
+.game__score {
+  font-size: 0.8rem;
+  color: var(--accent-cyan);
+  letter-spacing: 1px;
+}
+
+.game__lives {
+  display: flex;
+  gap: 4px;
+}
+
+.heart {
+  color: #f85149;
+  font-size: 0.85rem;
+}
+
+.game__canvas-wrap {
+  position: relative;
+  line-height: 0;
+  border: 1px solid var(--border-subtle);
+  border-radius: 0 0 10px 10px;
+  overflow: hidden;
+  background: var(--bg-primary);
+}
+
+.game__canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.game__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 11, 20, 0.88);
+  backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.game__overlay-alien {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.game__overlay-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+.game__overlay-hint {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 0 2rem;
+}
+
+/* Mobile controls */
+.game__mobile-controls {
+  display: none;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.game__btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  transition: background 0.1s, color 0.1s;
+}
+
+.game__btn:active {
+  background: var(--bg-card-hover);
+  color: var(--accent-cyan);
+}
+
+.game__btn--shoot {
+  color: var(--accent-cyan);
+  border-color: rgba(62, 204, 193, 0.25);
+}
+
+@media (max-width: 600px) {
+  .game__mobile-controls { display: flex; }
+}
+
+@media (max-width: 580px) {
+  .game__hud { max-width: 100%; }
+}

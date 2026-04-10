@@ -1,0 +1,127 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 1.2rem 0;
+  transition: background 0.3s, box-shadow 0.3s, padding 0.3s;
+}
+
+.navbar.scrolled {
+  background: rgba(8, 11, 20, 0.92);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 1px 0 var(--border-subtle);
+  padding: 0.75rem 0;
+}
+
+.navbar__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar__logo {
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+.logo-bracket {
+  color: var(--accent-cyan);
+}
+
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navbar__link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color 0.2s;
+  letter-spacing: 0.3px;
+}
+
+.navbar__link:hover {
+  color: var(--text-primary);
+}
+
+.lang-toggle {
+  font-size: 1.3rem;
+  line-height: 1;
+  padding: 0.2rem;
+  border-radius: 6px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lang-toggle:hover {
+  transform: scale(1.15);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn-outline {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.45rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--accent-cyan);
+  letter-spacing: 0.3px;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.btn-outline:hover {
+  background: var(--accent-cyan-glow);
+  border-color: var(--accent-cyan);
+}
+
+.navbar__burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 4px;
+}
+
+.navbar__burger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text-secondary);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.navbar__burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.navbar__burger.open span:nth-child(2) { opacity: 0; }
+.navbar__burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+@media (max-width: 700px) {
+  .navbar__burger { display: flex; }
+
+  .navbar__links {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(8, 11, 20, 0.98);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+  }
+
+  .navbar__links.open { display: flex; }
+
+  .navbar__link { font-size: 1.25rem; }
+}

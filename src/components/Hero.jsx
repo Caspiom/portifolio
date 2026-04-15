@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { useLang } from '../context/LanguageContext'
 import { t } from '../i18n/translations'
+import { useScrambleText } from '../hooks/useScrambleText'
 import './Hero.css'
 
 export default function Hero() {
@@ -9,6 +10,10 @@ export default function Hero() {
   const glowLeftRef = useRef(null)
   const glowRightRef = useRef(null)
   const contentRef = useRef(null)
+
+  // Decode the greeting and name from matrix chars on mount
+  const greetingDecoded = useScrambleText(tx.greeting, { delay: 100,  duration: 700 })
+  const nameDecoded     = useScrambleText('Lucas Gaspari',  { delay: 250,  duration: 1100 })
 
   useEffect(() => {
     const onScroll = () => {
@@ -30,8 +35,8 @@ export default function Hero() {
       <div ref={glowRightRef} className="hero__glow hero__glow--right" />
 
       <div ref={contentRef} className="hero__content">
-        <p className="hero__greeting mono hero__anim hero__anim--1">{tx.greeting}</p>
-        <h1 className="hero__name hero__anim hero__anim--2">Lucas Gaspari</h1>
+        <p className="hero__greeting mono hero__anim hero__anim--1">{greetingDecoded}</p>
+        <h1 className="hero__name hero__anim hero__anim--2" style={{ whiteSpace: 'pre' }}>{nameDecoded}</h1>
         <h2 className="hero__title hero__anim hero__anim--3">{tx.title}</h2>
         <p className="hero__bio hero__anim hero__anim--4">{tx.bio}</p>
 

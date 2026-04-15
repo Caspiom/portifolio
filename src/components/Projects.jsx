@@ -1,6 +1,11 @@
+import { useRef, useCallback } from 'react'
 import { useLang } from '../context/LanguageContext'
 import { t } from '../i18n/translations'
 import './Projects.css'
+
+const MATRIX_CHARS = 'アイウエオカキクケコ0123456789ABCDEF<>{}[]=+*#@!'
+const PURPLE = [137, 87, 229]
+const TEAL   = [62, 204, 193]
 
 const projectMeta = [
   { lang: 'Python', langColor: '#3572A5', tags: ['Python', 'Machine Learning', 'Math'], repo: 'https://github.com/Caspiom/Neural_Network_From_Scratch', featured: true },
@@ -169,13 +174,100 @@ export default function Projects() {
 }
 
 function ProjectCard({ item, meta, featured, delay = '' }) {
+  const canvasRef  = useRef(null)
+  const rafRef     = useRef(null)
+  const activeRef  = useRef(false)
+  const trailsRef  = useRef([])
+
+  const startMatrix = useCallback(() => {
+    if (activeRef.current) return
+    activeRef.current = true
+
+    const canvas = canvasRef.current
+    if (!canvas) return
+
+    const FONT = 11
+    const w = canvas.width  = canvas.offsetWidth
+    const h = canvas.height = canvas.offsetHeight
+    const cols = Math.floor(w / FONT)
+    const count = Math.max(3, Math.floor(cols * 0.18))
+
+    trailsRef.current = Array.from({ length: count }, () => ({
+      col:   Math.floor(Math.random() * cols),
+      y:     Math.random() * -h * 0.6,
+      speed: 1.5 + Math.random() * 2.5,
+      len:   4 + Math.floor(Math.random() * 5),
+      color: Math.random() < 0.55 ? PURPLE : TEAL,
+    }))
+
+    const ctx = canvas.getContext('2d')
+    ctx.font = `${FONT}px "JetBrains Mono", monospace`
+
+    const draw = () => {
+      if (!activeRef.current) {
+        ctx.clearRect(0, 0, w, h)
+        return
+      }
+
+      ctx.clearRect(0, 0, w, h)
+
+      trailsRef.current.forEach(tr => {
+        tr.y += tr.speed
+        const [r, g, b] = tr.color
+
+        for (let j = 0; j <= tr.len; j++) {
+          const fy = tr.y - j * FONT
+          if (fy < 0 || fy > h) continue
+          const fade = j === 0 ? 0.85 : Math.max(0, 0.45 - j * 0.08)
+          ctx.fillStyle = `rgba(${r},${g},${b},${fade})`
+          const ch = MATRIX_CHARS[Math.floor(Math.random() * MATRIX_CHARS.length)]
+          ctx.fillText(ch, tr.col * FONT, fy)
+        }
+
+        if (tr.y - tr.len * FONT > h) {
+          tr.y = -FONT * 2
+          tr.col = Math.floor(Math.random() * cols)
+          tr.color = Math.random() < 0.55 ? PURPLE : TEAL
+        }
+      })
+
+      rafRef.current = requestAnimationFrame(draw)
+    }
+
+    rafRef.current = requestAnimationFrame(draw)
+  }, [])
+
+  const stopMatrix = useCallback(() => {
+    activeRef.current = false
+    cancelAnimationFrame(rafRef.current)
+    const canvas = canvasRef.current
+    if (canvas) canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
+  }, [])
+
   return (
     <a
       href={meta.repo}
       target="_blank"
       rel="noopener noreferrer"
       className={`project-card ${featured ? 'project-card--featured' : ''} reveal reveal--scale ${delay}`}
+      onMouseEnter={startMatrix}
+      onMouseLeave={stopMatrix}
     >
+      {/* Matrix rain overlay — activated on hover */}
+      <canvas
+        ref={canvasRef}
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          width: '100%',
+          height: '100%',
+          borderRadius: 'inherit',
+          pointerEvents: 'none',
+          opacity: 0.35,
+        }}
+      />
+
       <div className="project-card__top">
         <FolderIcon />
         <ExternalIcon />

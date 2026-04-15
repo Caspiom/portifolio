@@ -1,5 +1,6 @@
 import { useLang } from '../context/LanguageContext'
 import { t } from '../i18n/translations'
+import { useCountUp } from '../hooks/useCountUp'
 import CodeBg from './CodeBg'
 import './About.css'
 
@@ -62,10 +63,10 @@ export default function About() {
           </div>
 
           <div className="about__stats">
-            <StatCard number="3+" label={tx.stats.experience} delay="d2" />
-            <StatCard number="29+" label={tx.stats.repos} delay="d3" />
-            <StatCard number="5+" label={tx.stats.languages} delay="d4" />
-            <StatCard number="3" label={tx.stats.cloud} delay="d5" />
+            <StatCard target={3}  suffix="+" label={tx.stats.experience} delay="d2" />
+            <StatCard target={29} suffix="+" label={tx.stats.repos}      delay="d3" />
+            <StatCard target={5}  suffix="+" label={tx.stats.languages}  delay="d4" />
+            <StatCard target={3}  suffix=""  label={tx.stats.cloud}      delay="d5" />
           </div>
         </div>
       </div>
@@ -73,10 +74,11 @@ export default function About() {
   )
 }
 
-function StatCard({ number, label, delay = '' }) {
+function StatCard({ target, suffix = '', label, delay = '' }) {
+  const { displayValue, nodeRef } = useCountUp(target, suffix, { duration: 1100 })
   return (
-    <div className={`stat-card reveal reveal--scale ${delay}`}>
-      <span className="stat-number">{number}</span>
+    <div ref={nodeRef} className={`stat-card reveal reveal--scale ${delay}`}>
+      <span className="stat-number">{displayValue}</span>
       <span className="stat-label">{label}</span>
     </div>
   )

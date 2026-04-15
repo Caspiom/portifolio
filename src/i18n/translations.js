@@ -31,15 +31,15 @@ export const t = {
       jobs: [
         {
           period: 'Sep 2025 — Present',
-          role: 'Cloud & Infrastructure Intern',
+          role: 'Full Stack Developer & Cloud and Infrastructure Intern',
           company: 'Gaspari Tecnologia',
           location: 'Salvador, BA',
           bullets: [
-            'Administering and monitoring hybrid cloud environments on AWS and Microsoft Azure.',
-            'Writing Python automation scripts to streamline infrastructure provisioning, maintenance, and operational tasks.',
-            'Developing full-stack applications using Rust, Java, and React.',
-            'Managing SaaS platforms: Google Workspace and Microsoft 365 — users, groups, and security policies.',
-            'Providing specialized technical support, diagnosing incidents related to systems, networks, and cloud.',
+            'Full-stack development of web applications using React (frontend), Java and Rust (backend), covering the full product lifecycle.',
+            'Administration and monitoring of hybrid cloud environments using AWS (Amazon Web Services) and Microsoft Azure.',
+            'Development of automation scripts (using Python and PowerShell) to optimize infrastructure provisioning and maintenance tasks.',
+            'Management of SaaS platforms, including Google Workspace (Admin Console) and Microsoft 365 (Admin Console), for user account, group, and security policy administration.',
+            'Providing specialized technical support to internal users, diagnosing and resolving incidents related to systems, networks, and cloud services.',
           ],
         },
         {
@@ -186,15 +186,15 @@ export const t = {
       jobs: [
         {
           period: 'Set 2025 — Atual',
-          role: 'Estagiário de Cloud e Infraestrutura',
+          role: 'Desenvolvedor Full Stack e Estagiário de Cloud e Infraestrutura',
           company: 'Gaspari Tecnologia',
           location: 'Salvador, BA',
           bullets: [
-            'Administração e monitoramento de ambientes de nuvem híbrida utilizando AWS e Microsoft Azure.',
-            'Desenvolvimento de scripts de automação em Python para otimizar tarefas de provisionamento, manutenção e operação de infraestrutura.',
-            'Desenvolvimento de aplicações full-stack utilizando Rust, Java e React.',
-            'Gerenciamento de plataformas SaaS: Google Workspace e Microsoft 365 — usuários, grupos e políticas de segurança.',
-            'Prestação de suporte técnico especializado, diagnosticando incidentes relacionados a sistemas, redes e serviços em nuvem.',
+            'Desenvolvimento full stack de aplicações web utilizando React (frontend), Java e Rust (backend), cobrindo todo o ciclo de vida do produto.',
+            'Administração e monitoramento de ambientes de nuvem híbrida utilizando AWS (Amazon Web Services) e Microsoft Azure.',
+            'Desenvolvimento de scripts de automação (usando Python e PowerShell) para otimizar tarefas de provisionamento e manutenção de infraestrutura.',
+            'Gerenciamento de plataformas SaaS, incluindo Google Workspace (Admin Console) e Microsoft 365 (Admin Console), para administração de contas de usuários, grupos e políticas de segurança.',
+            'Prestação de suporte técnico especializado a usuários internos, diagnosticando e resolvendo incidentes relacionados a sistemas, redes e serviços em nuvem.',
           ],
         },
         {

@@ -16,7 +16,16 @@ export default function Hero() {
   const nameDecoded     = useScrambleText('Lucas Gaspari',  { delay: 250,  duration: 1100 })
 
   useEffect(() => {
-    const onScroll = () => {
+    // Skip parallax on touch/small screens and when the user prefers reduced
+    // motion: it's a purely decorative desktop flourish, and running transform
+    // writes on every scroll frame is wasteful (and jittery) on phones.
+    const enabled = window.matchMedia(
+      '(min-width: 700px) and (pointer: fine) and (prefers-reduced-motion: no-preference)',
+    ).matches
+    if (!enabled) return
+
+    let ticking = false
+    const apply = () => {
       const y = window.scrollY
       if (glowLeftRef.current)
         glowLeftRef.current.style.transform = `translateY(${y * 0.2}px)`
@@ -24,7 +33,16 @@ export default function Hero() {
         glowRightRef.current.style.transform = `translateY(${y * -0.14}px)`
       if (contentRef.current)
         contentRef.current.style.transform = `translateY(${y * 0.07}px)`
+      ticking = false
     }
+
+    // Coalesce scroll events into one rAF-aligned write per frame.
+    const onScroll = () => {
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(apply)
+    }
+
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])

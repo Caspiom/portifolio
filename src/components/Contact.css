@@ -128,5 +128,15 @@
 }
 
 @media (max-width: 600px) {
+  .contact {
+    padding-top: 5rem;
+    padding-bottom: 6rem;
+  }
+  .contact::before { font-size: 6rem; }
+  .contact__desc { margin-bottom: 2rem; }
   .contact__cards { grid-template-columns: 1fr; }
+  .contact-card { padding: 1rem; }
+
+  /* Full-width CTA is an easier target than a centered pill on mobile */
+  .contact__cta { width: 100%; }
 }

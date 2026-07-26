@@ -15,9 +15,9 @@ export const t = {
     about: {
       label: 'about',
       title: 'A bit about me',
-      p1: 'I\'m a software engineering student at UCSAL in Salvador and I\'ve been writing code seriously for a few years now. I got into it through audio/video production — editing, live streaming, that kind of thing — and somewhere along the way I got hooked on the software side.',
-      p2: 'Right now I\'m interning at <strong>Gaspari Tecnologia</strong> managing cloud infrastructure on AWS and Azure, writing Python scripts to automate the boring parts, and building full-stack apps with Rust, Java, and React. At <strong>UCSAL\'s software factory</strong> I worked on real projects end-to-end using Java and React.',
-      p3: 'Cybersecurity is what I\'m most curious about long-term. I like understanding how systems break, not just how to build them. Outside of that — Rust for fun, Python for everything else.',
+      p1: 'I\'m a software engineering student at UCSAL in Salvador and I\'ve been writing code seriously for a few years now. I got into it through audio/video production, editing and live streaming mostly, and somewhere along the way I got hooked on the software side.',
+      p2: 'Right now I\'m working at <strong>Gaspari Tecnologia</strong>, managing cloud infrastructure on AWS and Azure, writing Python scripts to automate the boring parts, and building full-stack apps with Rust, Java, and React. At <strong>UCSAL\'s software factory</strong> I worked on real projects end-to-end using Java and React.',
+      p3: 'Cybersecurity is what I\'m most curious about long-term. I like understanding how systems break, not just how to build them. Outside of that, Rust for fun and Python for everything else.',
       stats: {
         experience: 'Years of Experience',
         repos: 'GitHub Repositories',
@@ -31,7 +31,7 @@ export const t = {
       jobs: [
         {
           period: 'Sep 2025 — Present',
-          role: 'Full Stack Developer & Cloud and Infrastructure Intern',
+          role: 'Full Stack Developer & Cloud and Infrastructure',
           company: 'Gaspari Tecnologia',
           location: 'Salvador, BA',
           bullets: [
@@ -48,7 +48,7 @@ export const t = {
           company: 'Fábrica de Software Acadêmica UCSAL',
           location: 'Salvador, BA',
           bullets: [
-            'Full-cycle software development — from conception to deployment and maintenance.',
+            'Full-cycle software development, from conception to deployment and maintenance.',
             'Built full-stack applications using Java and React, covering both backend services and interactive frontends.',
             'Requirements analysis, prototyping, and system implementation.',
             'Software testing for quality assurance and production environment deployments.',
@@ -56,7 +56,7 @@ export const t = {
         },
         {
           period: 'Jan 2020 — Oct 2024',
-          role: 'Freelancer — Audio/Video Technician',
+          role: 'Freelance Audio/Video Technician',
           company: 'M2 AudioVisual',
           location: 'Salvador, BA',
           bullets: [
@@ -91,7 +91,7 @@ export const t = {
       items: [
         {
           name: 'Neural Network From Scratch',
-          description: 'A neural network implemented from the ground up in Python — no ML frameworks, pure math and code to understand the internals of deep learning.',
+          description: 'A neural network built from the ground up in Python, no ML frameworks, just math and code to understand how deep learning actually works.',
         },
         {
           name: 'PacmanIA',
@@ -99,7 +99,7 @@ export const t = {
         },
         {
           name: 'TodoList CLI (Rust)',
-          description: 'A simple but robust command-line to-do list manager written in Rust — fast, minimal, and memory-safe.',
+          description: 'A simple but solid command-line to-do list manager written in Rust. Fast, minimal, and memory-safe.',
         },
         {
           name: 'HACKATHON-TJBA-2025',
@@ -107,7 +107,7 @@ export const t = {
         },
         {
           name: 'Google Workspace User Filter',
-          description: 'CLI tool for analyzing and filtering Google Workspace users — useful for IT administrators managing large orgs.',
+          description: 'CLI tool for analyzing and filtering Google Workspace users. Handy for IT admins managing large orgs.',
         },
         {
           name: 'DiscordBotAi',
@@ -123,7 +123,7 @@ export const t = {
         },
         {
           name: 'flappyfox',
-          description: 'A Flappy Bird clone written in Rust — a fun systems programming exercise with game loop logic.',
+          description: 'A Flappy Bird clone written in Rust. A fun little systems programming exercise with game loop logic.',
         },
       ],
     },
@@ -170,9 +170,9 @@ export const t = {
     about: {
       label: 'sobre',
       title: 'Um pouco sobre mim',
-      p1: 'Sou estudante de engenharia de software na UCSAL, em Salvador, e estou escrevendo código de forma séria há alguns anos. Comecei pela produção audiovisual — edição, transmissão ao vivo — e em algum momento fui fisgado pelo lado do software.',
-      p2: 'Hoje estou estagiando na <strong>Gaspari Tecnologia</strong>, gerenciando infraestrutura em nuvem na AWS e Azure, escrevendo scripts Python para automatizar tarefas operacionais e desenvolvendo aplicações full-stack com Rust, Java e React. Na <strong>fábrica de software da UCSAL</strong> trabalhei em projetos reais do início ao fim com Java e React.',
-      p3: 'Cibersegurança é o que mais me interessa a longo prazo. Gosto de entender como sistemas falham, não só como construí-los. Fora isso — Rust por diversão, Python para todo o resto.',
+      p1: 'Sou estudante de engenharia de software na UCSAL, em Salvador, e escrevo código de forma séria há alguns anos. Comecei pela produção audiovisual, mais edição e transmissão ao vivo, e em algum momento fui fisgado pelo lado do software.',
+      p2: 'Hoje trabalho na <strong>Gaspari Tecnologia</strong>, gerenciando infraestrutura em nuvem na AWS e Azure, escrevendo scripts Python para automatizar tarefas operacionais e desenvolvendo aplicações full-stack com Rust, Java e React. Na <strong>fábrica de software da UCSAL</strong> trabalhei em projetos reais do início ao fim com Java e React.',
+      p3: 'Cibersegurança é o que mais me interessa a longo prazo. Gosto de entender como sistemas falham, não só como construí-los. Fora isso, Rust por diversão e Python para todo o resto.',
       stats: {
         experience: 'Anos de Experiência',
         repos: 'Repositórios no GitHub',
@@ -186,7 +186,7 @@ export const t = {
       jobs: [
         {
           period: 'Set 2025 — Atual',
-          role: 'Desenvolvedor Full Stack e Estagiário de Cloud e Infraestrutura',
+          role: 'Desenvolvedor Full Stack e Cloud e Infraestrutura',
           company: 'Gaspari Tecnologia',
           location: 'Salvador, BA',
           bullets: [
@@ -203,7 +203,7 @@ export const t = {
           company: 'Fábrica de Software Acadêmica UCSAL',
           location: 'Salvador, BA',
           bullets: [
-            'Desenvolvimento completo de software — da concepção à implantação e manutenção.',
+            'Desenvolvimento completo de software, da concepção à implantação e manutenção.',
             'Construção de aplicações full-stack utilizando Java e React, cobrindo desde serviços backend até interfaces interativas.',
             'Análise de requisitos, elaboração de protótipos e implementação de sistemas.',
             'Testes de software para garantia de qualidade e implantação em ambiente de produção.',
@@ -211,7 +211,7 @@ export const t = {
         },
         {
           period: 'Jan 2020 — Out 2024',
-          role: 'Freelancer — Técnico em Áudio e Vídeo',
+          role: 'Freelancer, Técnico em Áudio e Vídeo',
           company: 'M2 AudioVisual',
           location: 'Salvador, BA',
           bullets: [
@@ -246,7 +246,7 @@ export const t = {
       items: [
         {
           name: 'Neural Network From Scratch',
-          description: 'Uma rede neural implementada do zero em Python — sem frameworks de ML, matemática pura para entender o funcionamento interno do deep learning.',
+          description: 'Uma rede neural feita do zero em Python, sem frameworks de ML, só matemática e código para entender como o deep learning funciona por dentro.',
         },
         {
           name: 'PacmanIA',
@@ -254,7 +254,7 @@ export const t = {
         },
         {
           name: 'TodoList CLI (Rust)',
-          description: 'Um gerenciador de tarefas por linha de comando simples e robusto escrito em Rust — rápido, minimalista e com segurança de memória.',
+          description: 'Um gerenciador de tarefas por linha de comando simples e sólido escrito em Rust. Rápido, minimalista e com segurança de memória.',
         },
         {
           name: 'HACKATHON-TJBA-2025',
@@ -262,7 +262,7 @@ export const t = {
         },
         {
           name: 'Filtro de Usuários do Google Workspace',
-          description: 'Ferramenta CLI para análise e filtragem de usuários do Google Workspace — útil para administradores de TI em grandes organizações.',
+          description: 'Ferramenta CLI para análise e filtragem de usuários do Google Workspace. Útil para administradores de TI em grandes organizações.',
         },
         {
           name: 'DiscordBotAi',
@@ -278,7 +278,7 @@ export const t = {
         },
         {
           name: 'flappyfox',
-          description: 'Um clone do Flappy Bird escrito em Rust — um exercício divertido de programação de sistemas com lógica de game loop.',
+          description: 'Um clone do Flappy Bird escrito em Rust. Um exercício divertido de programação de sistemas com lógica de game loop.',
         },
       ],
     },

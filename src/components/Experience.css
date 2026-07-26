@@ -194,8 +194,17 @@
 }
 
 @media (max-width: 600px) {
-  .exp-header { flex-direction: column; }
+  .experience { padding-top: 5rem; }
+  .experience::before { font-size: 6rem; top: -0.25rem; right: 0.75rem; }
+
+  /* Drop the timeline rail on mobile so cards use the full width */
+  .exp-header { flex-direction: column; gap: 0.25rem; }
+  .exp-header .exp-period { margin-top: 0.25rem; }
   .timeline::before { display: none; }
   .timeline__dot { display: none; }
-  .timeline__item { gap: 0; }
+  .timeline__item { gap: 0; padding-bottom: 1.5rem; }
+
+  .timeline__card { padding: 1.25rem; }
+
+  .education-card { gap: 1rem; padding: 1.25rem; }
 }

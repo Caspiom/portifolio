@@ -197,5 +197,14 @@
 }
 
 @media (max-width: 600px) {
+  .projects { padding-top: 5rem; }
+  .projects::before { font-size: 6rem; top: -0.25rem; right: 0.75rem; }
   .projects__grid { grid-template-columns: 1fr; }
+
+  /* Featured cards drop their extra padding at phone width */
+  .project-card--featured { padding: 1.5rem; }
+
+  /* Decorative side code drifts off-canvas on small screens — hide it so it
+     can't sit faintly behind the cards */
+  .code-bg { display: none; }
 }

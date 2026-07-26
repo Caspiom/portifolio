@@ -130,5 +130,11 @@
 }
 
 @media (max-width: 600px) {
-  .skills__grid { grid-template-columns: 1fr; }
+  .skills__grid { grid-template-columns: 1fr; gap: 1rem; }
+  .skills::before { font-size: 6rem; top: -0.25rem; right: 0.75rem; }
+  .skill-group { padding: 1.25rem; }
+
+  /* Language badges span the row instead of squeezing side-by-side */
+  .skills__lang { flex-direction: column; }
+  .lang-badge { justify-content: flex-start; }
 }

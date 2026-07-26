@@ -89,6 +89,8 @@
 .btn-primary {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  min-height: var(--tap);
   padding: 0.7rem 1.6rem;
   background: var(--accent);
   color: white;
@@ -105,6 +107,8 @@
 .btn-ghost {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  min-height: var(--tap);
   padding: 0.7rem 1.6rem;
   border: 1px solid var(--border-subtle);
   border-radius: 6px;
@@ -129,8 +133,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  /* Icon is 22px; pad out to a 44px tap target */
+  width: var(--tap);
+  height: var(--tap);
+  border-radius: 8px;
   color: var(--text-muted);
-  transition: color 0.15s;
+  transition: color 0.15s, background 0.15s;
 }
 
 .social-link:hover {
@@ -196,4 +204,34 @@
 @media (prefers-reduced-motion: reduce) {
   .hero__anim { animation: none; opacity: 1; }
   .hero__scroll-cue { animation: none; opacity: 0.6; }
+}
+
+@media (max-width: 600px) {
+  .hero {
+    padding: 7rem 1.25rem 3rem;
+    min-height: 100svh; /* avoid mobile URL-bar jump vs 100vh */
+  }
+
+  /* Smaller floor + tighter tracking so the (non-wrapping) name never
+     clips or overflows on narrow phones */
+  .hero__name {
+    font-size: clamp(2.1rem, 12vw, 3.4rem);
+    letter-spacing: -1.5px;
+  }
+
+  .hero__bio { font-size: 1rem; }
+
+  /* Stack CTAs full-width — easier thumb targets than side-by-side pills */
+  .hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+  }
+
+  .hero__actions .btn-primary,
+  .hero__actions .btn-ghost { width: 100%; }
+
+  /* The bouncing scroll cue tends to collide with stacked CTAs on short
+     mobile viewports — hide it there */
+  .hero__scroll-cue { display: none; }
 }

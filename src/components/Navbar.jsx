@@ -13,9 +13,27 @@ export default function Navbar() {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
-    window.addEventListener('scroll', onScroll)
+    window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  // Lock body scroll and enable Escape-to-close only while the mobile
+  // overlay menu is open. Both effects are torn down together so the class
+  // and listener can never leak between renders.
+  useEffect(() => {
+    if (!menuOpen) return
+
+    document.body.classList.add('nav-open')
+    const onKey = (e) => e.key === 'Escape' && setMenuOpen(false)
+    window.addEventListener('keydown', onKey)
+
+    return () => {
+      document.body.classList.remove('nav-open')
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [menuOpen])
+
+  const langLabel = lang === 'en' ? 'Mudar para Português' : 'Switch to English'
 
   return (
     <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
@@ -24,42 +42,56 @@ export default function Navbar() {
           <span className="logo-bracket">&lt;</span>LG.Dev<span className="logo-bracket">/&gt;</span>
         </a>
 
-        <nav className={`navbar__links ${menuOpen ? 'open' : ''}`}>
-          {tx.links.map((label, i) => (
+        <div className="navbar__right">
+          <nav
+            id="primary-nav"
+            aria-label="Primary"
+            className={`navbar__links ${menuOpen ? 'open' : ''}`}
+          >
+            {tx.links.map((label, i) => (
+              <a
+                key={label}
+                href={`#${sectionIds[i]}`}
+                className="navbar__link"
+                onClick={() => setMenuOpen(false)}
+              >
+                {label}
+              </a>
+            ))}
             <a
-              key={label}
-              href={`#${sectionIds[i]}`}
-              className="navbar__link"
+              href="https://github.com/Caspiom"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="navbar__github btn-outline"
               onClick={() => setMenuOpen(false)}
             >
-              {label}
+              {tx.github}
             </a>
-          ))}
-          <a
-            href="https://github.com/Caspiom"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="navbar__github btn-outline"
-          >
-            {tx.github}
-          </a>
-          <button
-            className="lang-toggle"
-            onClick={toggle}
-            aria-label={lang === 'en' ? 'Mudar para Português' : 'Switch to English'}
-            title={lang === 'en' ? 'Mudar para Português' : 'Switch to English'}
-          >
-            {lang === 'en' ? '🇧🇷' : '🇺🇸'}
-          </button>
-        </nav>
+          </nav>
 
-        <button
-          className={`navbar__burger ${menuOpen ? 'open' : ''}`}
-          onClick={() => setMenuOpen(v => !v)}
-          aria-label="Toggle menu"
-        >
-          <span /><span /><span />
-        </button>
+          {/* Kept outside the collapsible <nav> so the language switch is
+              always reachable on mobile without opening the menu. */}
+          <div className="navbar__actions">
+            <button
+              className="lang-toggle"
+              onClick={toggle}
+              aria-label={langLabel}
+              title={langLabel}
+            >
+              {lang === 'en' ? '🇧🇷' : '🇺🇸'}
+            </button>
+
+            <button
+              className={`navbar__burger ${menuOpen ? 'open' : ''}`}
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={menuOpen}
+              aria-controls="primary-nav"
+            >
+              <span /><span /><span />
+            </button>
+          </div>
+        </div>
       </div>
     </header>
   )

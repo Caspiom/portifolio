@@ -25,11 +25,18 @@
   --accent-cyan-glow: rgba(62, 204, 193, 0.2);
   --text-primary: #f1f5f9;
   --text-secondary: #94a3b8;
-  --text-muted: #475569;
+  /* Bumped from #475569 → better AA contrast for small muted labels on mobile */
+  --text-muted: #64748b;
   --border: rgba(137, 87, 229, 0.18);
   --border-subtle: rgba(255, 255, 255, 0.06);
   --font-sans: 'Inter', sans-serif;
   --font-mono: 'Departure Mono', 'JetBrains Mono', monospace;
+
+  /* Responsive spacing tokens — consumed by .section so a single media
+     query below can retune every section's padding at once. */
+  --section-px: 2rem;   /* horizontal inset */
+  --section-py: 6rem;   /* vertical rhythm  */
+  --tap: 44px;          /* minimum touch-target size (WCAG 2.5.5) */
 }
 
 html {
@@ -42,6 +49,14 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  /* Guard against decorative absolute elements (code backgrounds, glows,
+     ghost numbers) ever pushing a horizontal scrollbar on small screens. */
+  overflow-x: hidden;
+}
+
+/* Prevents body scroll while the mobile nav overlay is open. */
+body.nav-open {
+  overflow: hidden;
 }
 
 /* All content sits above the matrix canvas */
@@ -113,5 +128,20 @@ button {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+}
+
+/* ── Responsive spacing ──
+   Retunes every section at once by overriding the tokens .section consumes,
+   so we get tighter, more breathable mobile padding without touching each
+   component file. Tablet first, then phone. */
+@media (max-width: 768px) {
+  :root { --section-py: 5rem; }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --section-px: 1.25rem;
+    --section-py: 4rem;
   }
 }

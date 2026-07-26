@@ -13,22 +13,31 @@ import ScrollProgress from './components/ScrollProgress'
 
 export default function App() {
   useEffect(() => {
-    const reveal = () => {
-      document.querySelectorAll('.reveal:not(.revealed)').forEach((el) => {
-        const { top, bottom } = el.getBoundingClientRect()
-        if (top < window.innerHeight - 60 && bottom > 0) {
-          el.classList.add('revealed')
-        }
-      })
+    const els = document.querySelectorAll('.reveal:not(.revealed)')
+
+    // IntersectionObserver replaces the old scroll handler: the browser
+    // batches visibility checks off the main thread instead of us calling
+    // getBoundingClientRect() on every element on every scroll frame — a
+    // meaningful win on low-powered mobile devices.
+    if (!('IntersectionObserver' in window)) {
+      els.forEach((el) => el.classList.add('revealed'))
+      return
     }
 
-    reveal()
-    window.addEventListener('scroll', reveal, { passive: true })
-    window.addEventListener('resize', reveal, { passive: true })
-    return () => {
-      window.removeEventListener('scroll', reveal)
-      window.removeEventListener('resize', reveal)
-    }
+    const io = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed')
+            obs.unobserve(entry.target) // reveal once, then stop watching
+          }
+        })
+      },
+      { rootMargin: '0px 0px -60px 0px' },
+    )
+
+    els.forEach((el) => io.observe(el))
+    return () => io.disconnect()
   }, [])
 
   return (

@@ -17,7 +17,9 @@ const projectMeta = [
   { lang: 'Python', langColor: '#3572A5', tags: ['Python', 'Machine Learning', 'Math'], repo: 'https://github.com/Caspiom/Neural_Network_From_Scratch', featured: true },
   { lang: 'Python', langColor: '#3572A5', tags: ['Python', 'AI', 'Pathfinding'], repo: 'https://github.com/Caspiom/PacmanIA', featured: true },
   { lang: 'Rust',   langColor: '#dea584', tags: ['Rust', 'CLI', 'Systems'],           repo: 'https://github.com/Caspiom/TodoList', featured: true },
-  { lang: 'HTML',   langColor: '#e34c26', tags: ['Google Workspace', 'Admin', 'CLI'], repo: 'https://github.com/Caspiom/Filtro-de-Usu-rios-do-Google-Workspace' },
+  // GitHub reports this repo as HTML because of the packaged build folders; the
+  // actual source is main.py.
+  { lang: 'Python', langColor: '#3572A5', tags: ['Google Workspace', 'Admin', 'CLI'], repo: 'https://github.com/Caspiom/Filtro-de-Usu-rios-do-Google-Workspace' },
   { lang: 'Python', langColor: '#3572A5', tags: ['Python', 'Discord', 'AI'],          repo: 'https://github.com/Caspiom/DiscordBotAi' },
   { lang: 'Python', langColor: '#3572A5', tags: ['Python', 'Data', 'Automation'],     repo: 'https://github.com/Caspiom/PDF_TO_CSV' },
   { lang: 'Rust',   langColor: '#dea584', tags: ['Rust', 'Game Dev'],                 repo: 'https://github.com/Caspiom/flappyfox' },

@@ -69,11 +69,6 @@
   text-align: left;
 }
 
-/* Odd card out: let location fill the last row instead of leaving a gap */
-.contact-card--location {
-  grid-column: 1 / -1;
-}
-
 .contact-card {
   display: flex;
   align-items: center;

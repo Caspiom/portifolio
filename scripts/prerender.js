@@ -28,3 +28,23 @@ await writeFile(htmlPath, html.replace(marker, `<div id="root">${appHtml}</div>`
 await rm(ssrDir, { recursive: true, force: true })
 
 console.log(`prerendered ${(appHtml.length / 1024).toFixed(1)} kB of HTML into dist/index.html`)
+
+// Single-page site, so the sitemap is one URL. Generated here rather than kept
+// as a static file in public/ so lastmod tracks the actual build date.
+const lastmod = new Date().toISOString().slice(0, 10)
+await writeFile(
+  resolve(root, 'dist/sitemap.xml'),
+  `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://portfolio.gaspari.dev/</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
+`,
+  'utf8',
+)
+
+console.log(`wrote dist/sitemap.xml (lastmod ${lastmod})`)

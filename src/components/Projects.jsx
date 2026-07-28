@@ -7,14 +7,18 @@ const MATRIX_CHARS = 'アイウエオカキクケコ0123456789ABCDEF<>{}[]=+*#@!
 const PURPLE = [137, 87, 229]
 const TEAL   = [62, 204, 193]
 
+// Order here must match the order of `projects.items` in the translations file:
+// the two are zipped by index.
 const projectMeta = [
+  // Client code, so there's no public repo — the card shows a production badge instead.
+  { lang: 'Rust',   langColor: '#dea584', tags: ['Rust', 'Axum', 'Power BI', 'Entra ID', 'REST API'], repo: null, badge: true, featured: true },
+  { lang: 'Java',   langColor: '#b07219', tags: ['Java', 'Spring Boot', 'React', 'Hackathon'], repo: 'https://github.com/Caspiom/HACKATHON-TJBA-2025', featured: true },
+  { lang: 'Java',   langColor: '#b07219', tags: ['Java', 'Spring Boot', 'Microservices'], repo: 'https://github.com/Caspiom/eurekaServerMicrosServices', featured: true },
   { lang: 'Python', langColor: '#3572A5', tags: ['Python', 'Machine Learning', 'Math'], repo: 'https://github.com/Caspiom/Neural_Network_From_Scratch', featured: true },
   { lang: 'Python', langColor: '#3572A5', tags: ['Python', 'AI', 'Pathfinding'], repo: 'https://github.com/Caspiom/PacmanIA', featured: true },
   { lang: 'Rust',   langColor: '#dea584', tags: ['Rust', 'CLI', 'Systems'],           repo: 'https://github.com/Caspiom/TodoList', featured: true },
-  { lang: 'Java',   langColor: '#b07219', tags: ['Java', 'Hackathon'],                repo: 'https://github.com/Caspiom/HACKATHON-TJBA-2025', featured: true },
   { lang: 'HTML',   langColor: '#e34c26', tags: ['Google Workspace', 'Admin', 'CLI'], repo: 'https://github.com/Caspiom/Filtro-de-Usu-rios-do-Google-Workspace' },
   { lang: 'Python', langColor: '#3572A5', tags: ['Python', 'Discord', 'AI'],          repo: 'https://github.com/Caspiom/DiscordBotAi' },
-  { lang: 'Java',   langColor: '#b07219', tags: ['Java', 'Spring Boot', 'Microservices'], repo: 'https://github.com/Caspiom/eurekaServerMicrosServices' },
   { lang: 'Python', langColor: '#3572A5', tags: ['Python', 'Data', 'Automation'],     repo: 'https://github.com/Caspiom/PDF_TO_CSV' },
   { lang: 'Rust',   langColor: '#dea584', tags: ['Rust', 'Game Dev'],                 repo: 'https://github.com/Caspiom/flappyfox' },
 ]
@@ -152,7 +156,7 @@ export default function Projects() {
 
         <div className="projects__featured">
           {featured.map((item, i) => (
-            <ProjectCard key={item.name} item={item} meta={featuredMeta[i]} featured delay={`d${i + 2}`} />
+            <ProjectCard key={item.name} item={item} meta={featuredMeta[i]} badgeLabel={tx.prodBadge} featured delay={`d${i + 2}`} />
           ))}
         </div>
 
@@ -173,7 +177,7 @@ export default function Projects() {
   )
 }
 
-function ProjectCard({ item, meta, featured, delay = '' }) {
+function ProjectCard({ item, meta, badgeLabel, featured, delay = '' }) {
   const canvasRef  = useRef(null)
   const rafRef     = useRef(null)
   const activeRef  = useRef(false)
@@ -244,12 +248,17 @@ function ProjectCard({ item, meta, featured, delay = '' }) {
     if (canvas) canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
   }, [])
 
+  // Cards without a public repo (client code) render as a plain container so
+  // there's no dead link to click.
+  const Tag = meta.repo ? 'a' : 'div'
+  const linkProps = meta.repo
+    ? { href: meta.repo, target: '_blank', rel: 'noopener noreferrer' }
+    : {}
+
   return (
-    <a
-      href={meta.repo}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`project-card ${featured ? 'project-card--featured' : ''} reveal reveal--scale ${delay}`}
+    <Tag
+      {...linkProps}
+      className={`project-card ${featured ? 'project-card--featured' : ''} ${meta.repo ? '' : 'project-card--static'} reveal reveal--scale ${delay}`}
       onMouseEnter={startMatrix}
       onMouseLeave={stopMatrix}
     >
@@ -270,7 +279,9 @@ function ProjectCard({ item, meta, featured, delay = '' }) {
 
       <div className="project-card__top">
         <FolderIcon />
-        <ExternalIcon />
+        {meta.badge
+          ? <span className="project-card__badge mono">{badgeLabel}</span>
+          : <ExternalIcon />}
       </div>
       <h3 className="project-card__name">{item.name}</h3>
       <p className="project-card__desc">{item.description}</p>
@@ -285,7 +296,7 @@ function ProjectCard({ item, meta, featured, delay = '' }) {
           <span>{meta.lang}</span>
         </div>
       </div>
-    </a>
+    </Tag>
   )
 }
 

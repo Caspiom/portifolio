@@ -10,7 +10,9 @@ const DIGITS = '0123456789'
  * displayValue is the animated number string (e.g. "17") + optional suffix.
  */
 export function useCountUp(target, suffix = '', { duration = 1100, delay = 0 } = {}) {
-  const [count, setCount]     = useState(0)
+  // Server-side (prerender) there's no viewport to enter, so start at the final
+  // value: the static HTML should carry the real number, not a zero.
+  const [count, setCount]     = useState(typeof window === 'undefined' ? target : 0)
   const [flicker, setFlicker] = useState(false)
   const nodeRef  = useRef(null)
   const rafRef   = useRef(null)

@@ -11,7 +11,11 @@ const CHARS = 'アイウエオカキクケコサシスセソタチツテトナ�
  * @param {boolean} options.trigger - set false to skip animation entirely
  */
 export function useScrambleText(target, { delay = 0, duration = 900, trigger = true } = {}) {
-  const [output, setOutput] = useState(() => '\u00A0'.repeat(target.length))
+  // On the server (prerender) there's no animation to run, so emit the real
+  // text: that's what crawlers and link previews read out of the static HTML.
+  const [output, setOutput] = useState(() =>
+    typeof window === 'undefined' ? target : '\u00A0'.repeat(target.length),
+  )
   const rafRef = useRef(null)
   const tmrRef = useRef(null)
 

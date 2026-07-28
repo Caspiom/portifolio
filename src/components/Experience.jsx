@@ -70,7 +70,7 @@ Get-AzConsumptionUsageDetail \`
   Select-Object -First 10`
 
 const jobTags = [
-  ['AWS', 'Azure', 'Python', 'Rust', 'Java', 'React', 'PowerShell'],
+  ['Rust', 'Java', 'Python', 'Azure', 'React', 'AWS'],
   ['Java', 'React', 'TypeScript', 'SQL', 'Git', 'Agile'],
   ['Filming', 'Video Editing', 'Live Streaming'],
 ]

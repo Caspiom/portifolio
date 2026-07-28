@@ -1,0 +1,2 @@
+# Temporary SSR bundle used by scripts/prerender.js (deleted after each build)
+.prerender/

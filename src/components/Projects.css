@@ -133,6 +133,36 @@
   align-items: center;
 }
 
+/* Cards without a public repo aren't clickable, so drop the link affordance */
+.project-card--static {
+  cursor: default;
+}
+
+/* Status badge that replaces the external-link icon on client work */
+.project-card__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  color: var(--accent-cyan);
+  background: rgba(62, 204, 193, 0.1);
+  border: 1px solid rgba(62, 204, 193, 0.28);
+  white-space: nowrap;
+}
+
+.project-card__badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+  box-shadow: 0 0 6px var(--accent-cyan);
+}
+
 .project-card__name {
   font-size: 1rem;
   font-weight: 600;

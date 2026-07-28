@@ -6,8 +6,8 @@ export const t = {
     },
     hero: {
       greeting: '// Salvador, BA',
-      title: 'Software Engineering Student & Developer',
-      bio: 'I build for the web, the cloud, and everywhere in between: from full-stack applications and REST APIs to cloud infrastructure and automation. Currently studying at UCSAL and always shipping something new.',
+      title: 'Full-Stack Developer | Software Engineering Student',
+      bio: 'I build full-stack applications and REST APIs, focused on systems integration and backend work. I work with Java, Python and Rust, across AWS and Azure. Currently studying at UCSAL and always shipping something new.',
       viewProjects: 'See my work',
       getInTouch: 'Get in touch',
       scroll: 'scroll',
@@ -17,9 +17,9 @@ export const t = {
       title: 'A bit about me',
       p1: 'I\'m a software engineering student at UCSAL in Salvador and I\'ve been writing code seriously for a few years now. I got into it through audio/video production, editing and live streaming mostly, and somewhere along the way I got hooked on the software side.',
       p2: 'Right now I\'m working at <strong>Gaspari Tecnologia</strong>, managing cloud infrastructure on AWS and Azure, writing Python scripts to automate the boring parts, and building full-stack apps with Rust, Java, and React. At <strong>UCSAL\'s software factory</strong> I worked on real projects end-to-end using Java and React.',
-      p3: 'Cybersecurity is what I\'m most curious about long-term. I like understanding how systems break, not just how to build them. Outside of that, Rust for fun and Python for everything else.',
+      p3: 'What I enjoy most is integration: wiring together systems that were never meant to talk to each other, and making that run reliably. I reach for Rust when the problem calls for performance and memory safety, and Python for everything else.',
       stats: {
-        experience: 'Years of Experience',
+        experience: 'Years in Development',
         repos: 'GitHub Repositories',
         languages: 'Languages',
         cloud: 'Cloud Platforms',
@@ -31,15 +31,16 @@ export const t = {
       jobs: [
         {
           period: 'Sep 2025 — Present',
-          role: 'Full Stack Developer & Cloud and Infrastructure',
+          role: 'Junior Full-Stack Developer',
           company: 'Gaspari Tecnologia',
           location: 'Salvador, BA',
           bullets: [
-            'Full-stack development of web applications using React (frontend), Java and Rust (backend), covering the full product lifecycle.',
-            'Administration and monitoring of hybrid cloud environments using AWS (Amazon Web Services) and Microsoft Azure.',
-            'Development of automation scripts (using Python and PowerShell) to optimize infrastructure provisioning and maintenance tasks.',
-            'Management of SaaS platforms, including Google Workspace (Admin Console) and Microsoft 365 (Admin Console), for user account, group, and security policy administration.',
-            'Providing specialized technical support to internal users, diagnosing and resolving incidents related to systems, networks, and cloud services.',
+            'Built a Rust (Axum) API integrating Power BI Embedded through app-owns-data (Entra ID app registration), delivering reports to end users inside the application. In production, serving a real client.',
+            'Built Microsoft Graph API integrations (Entra ID authentication, SharePoint, scope-based permissions) to automate client file workflows.',
+            'Developed full-stack web applications with React on the frontend and Java/Python on the backend, covering the full product lifecycle from prototyping to deploy.',
+            'Wrote Python automations that cut repetitive tasks from ~2h down to ~15min.',
+            'Worked with cloud environments (AWS and Azure), Docker and CI/CD to ship the applications.',
+            'Administered Microsoft 365 and Google Workspace platforms (50+ users) and provided N2 technical support to internal users.',
           ],
         },
         {
@@ -88,7 +89,20 @@ export const t = {
       title: 'Things I\'ve built',
       otherTitle: 'other stuff',
       githubCta: 'All 29 repos on GitHub →',
+      prodBadge: 'Production · Real client',
       items: [
+        {
+          name: 'Power BI Embedded Reports (Rust API)',
+          description: 'A Rust (Axum) API that integrates Power BI Embedded using app-owns-data, authenticating through an Entra ID app registration to deliver reports to end users right inside the application. In production, serving a real client.',
+        },
+        {
+          name: 'HACKATHON-TJBA-2025',
+          description: 'Full-stack solution built for the TJBA 2025 hackathon, serving the Tribunal de Justiça da Bahia: Java and Spring Boot on the backend, React on the frontend.',
+        },
+        {
+          name: 'Microservices with Eureka (Spring Boot)',
+          description: 'Microservices architecture using Netflix Eureka for service discovery and Spring Boot, with independent services registering and finding each other at runtime.',
+        },
         {
           name: 'Neural Network From Scratch',
           description: 'A neural network built from the ground up in Python, no ML frameworks, just math and code to understand how deep learning actually works.',
@@ -102,20 +116,12 @@ export const t = {
           description: 'A simple but solid command-line to-do list manager written in Rust. Fast, minimal, and memory-safe.',
         },
         {
-          name: 'HACKATHON-TJBA-2025',
-          description: 'Project developed for the TJBA 2025 hackathon, building a software solution for the Tribunal de Justiça da Bahia.',
-        },
-        {
           name: 'Google Workspace User Filter',
           description: 'CLI tool for analyzing and filtering Google Workspace users. Handy for IT admins managing large orgs.',
         },
         {
           name: 'DiscordBotAi',
           description: 'A Discord bot with an AI personality, built in Python. Responds to messages with generated content.',
-        },
-        {
-          name: 'Microservices with Eureka (Spring Boot)',
-          description: 'Microservices architecture study using Netflix Eureka for service discovery and Spring Boot.',
         },
         {
           name: 'PDF to CSV',
@@ -134,6 +140,7 @@ export const t = {
       emailLabel: 'Email',
       phoneLabel: 'Phone',
       githubLabel: 'GitHub',
+      linkedinLabel: 'LinkedIn',
       locationLabel: 'Location',
       location: 'Salvador, Bahia, Brazil',
       cta: 'Send an email',
@@ -161,8 +168,8 @@ export const t = {
     },
     hero: {
       greeting: '// Salvador, BA',
-      title: 'Estudante de Engenharia de Software & Desenvolvedor',
-      bio: 'Construo para a web, para a nuvem e para tudo que fica entre os dois: aplicações full-stack, APIs REST, infraestrutura em nuvem e automação. Atualmente estudando na UCSAL e sempre entregando algo novo.',
+      title: 'Desenvolvedor Full-Stack | Estudante de Engenharia de Software',
+      bio: 'Construo aplicações full-stack e APIs REST, com foco em integração de sistemas e backend. Trabalho com Java, Python e Rust, em ambientes AWS e Azure. Atualmente estudando na UCSAL e sempre entregando algo novo.',
       viewProjects: 'Ver meus projetos',
       getInTouch: 'Entrar em contato',
       scroll: 'rolar',
@@ -172,9 +179,9 @@ export const t = {
       title: 'Um pouco sobre mim',
       p1: 'Sou estudante de engenharia de software na UCSAL, em Salvador, e escrevo código de forma séria há alguns anos. Comecei pela produção audiovisual, mais edição e transmissão ao vivo, e em algum momento fui fisgado pelo lado do software.',
       p2: 'Hoje trabalho na <strong>Gaspari Tecnologia</strong>, gerenciando infraestrutura em nuvem na AWS e Azure, escrevendo scripts Python para automatizar tarefas operacionais e desenvolvendo aplicações full-stack com Rust, Java e React. Na <strong>fábrica de software da UCSAL</strong> trabalhei em projetos reais do início ao fim com Java e React.',
-      p3: 'Cibersegurança é o que mais me interessa a longo prazo. Gosto de entender como sistemas falham, não só como construí-los. Fora isso, Rust por diversão e Python para todo o resto.',
+      p3: 'O que mais gosto é de integração: conectar sistemas que não foram feitos para conversar e fazer isso rodar de forma confiável. Uso Rust quando o problema pede desempenho e segurança de memória, e Python para todo o resto.',
       stats: {
-        experience: 'Anos de Experiência',
+        experience: 'Anos em Desenvolvimento',
         repos: 'Repositórios no GitHub',
         languages: 'Linguagens',
         cloud: 'Plataformas Cloud',
@@ -186,15 +193,16 @@ export const t = {
       jobs: [
         {
           period: 'Set 2025 — Atual',
-          role: 'Desenvolvedor Full Stack e Cloud e Infraestrutura',
+          role: 'Desenvolvedor Full-Stack Júnior',
           company: 'Gaspari Tecnologia',
           location: 'Salvador, BA',
           bullets: [
-            'Desenvolvimento full stack de aplicações web utilizando React (frontend), Java e Rust (backend), cobrindo todo o ciclo de vida do produto.',
-            'Administração e monitoramento de ambientes de nuvem híbrida utilizando AWS (Amazon Web Services) e Microsoft Azure.',
-            'Desenvolvimento de scripts de automação (usando Python e PowerShell) para otimizar tarefas de provisionamento e manutenção de infraestrutura.',
-            'Gerenciamento de plataformas SaaS, incluindo Google Workspace (Admin Console) e Microsoft 365 (Admin Console), para administração de contas de usuários, grupos e políticas de segurança.',
-            'Prestação de suporte técnico especializado a usuários internos, diagnosticando e resolvendo incidentes relacionados a sistemas, redes e serviços em nuvem.',
+            'Desenvolvi uma API em Rust (Axum) que integra o Power BI Embedded no modelo app-owns-data (autenticação via registro de app no Entra ID), entregando relatórios a usuários finais direto na aplicação. Em produção, com cliente real.',
+            'Construí integrações com a Microsoft Graph API (autenticação via Entra ID, SharePoint, permissionamento por escopo) para automatizar fluxos de arquivos de clientes.',
+            'Desenvolvi aplicações web full-stack com React no frontend e Java/Python no backend, cobrindo todo o ciclo do produto, da prototipação ao deploy.',
+            'Criei automações em Python que reduziram tarefas repetitivas de ~2h para ~15min.',
+            'Trabalhei com ambientes de nuvem (AWS e Azure), Docker e CI/CD na entrega das aplicações.',
+            'Administrei plataformas Microsoft 365 e Google Workspace (+50 usuários) e prestei suporte técnico N2 a usuários internos.',
           ],
         },
         {
@@ -243,7 +251,20 @@ export const t = {
       title: 'O que construí',
       otherTitle: 'outras coisas',
       githubCta: 'Todos os 29 repos no GitHub →',
+      prodBadge: 'Produção · Cliente real',
       items: [
+        {
+          name: 'Relatórios Power BI Embedded (API em Rust)',
+          description: 'API em Rust (Axum) que integra o Power BI Embedded no modelo app-owns-data, com autenticação via registro de app no Entra ID, entregando relatórios a usuários finais direto na aplicação. Em produção, atendendo cliente real.',
+        },
+        {
+          name: 'HACKATHON-TJBA-2025',
+          description: 'Solução full-stack desenvolvida no hackathon do TJBA 2025 para o Tribunal de Justiça da Bahia: backend em Java com Spring Boot e frontend em React.',
+        },
+        {
+          name: 'Microsserviços com Eureka (Spring Boot)',
+          description: 'Arquitetura de microsserviços usando Netflix Eureka para descoberta de serviços e Spring Boot, com serviços independentes se registrando e se encontrando em tempo de execução.',
+        },
         {
           name: 'Neural Network From Scratch',
           description: 'Uma rede neural feita do zero em Python, sem frameworks de ML, só matemática e código para entender como o deep learning funciona por dentro.',
@@ -257,20 +278,12 @@ export const t = {
           description: 'Um gerenciador de tarefas por linha de comando simples e sólido escrito em Rust. Rápido, minimalista e com segurança de memória.',
         },
         {
-          name: 'HACKATHON-TJBA-2025',
-          description: 'Projeto desenvolvido para o hackathon do TJBA 2025, criando uma solução de software para o Tribunal de Justiça da Bahia.',
-        },
-        {
           name: 'Filtro de Usuários do Google Workspace',
           description: 'Ferramenta CLI para análise e filtragem de usuários do Google Workspace. Útil para administradores de TI em grandes organizações.',
         },
         {
           name: 'DiscordBotAi',
           description: 'Um bot do Discord com personalidade de IA, desenvolvido em Python. Responde a mensagens com conteúdo gerado por IA.',
-        },
-        {
-          name: 'Microsserviços com Eureka (Spring Boot)',
-          description: 'Estudo de arquitetura de microsserviços usando Netflix Eureka para descoberta de serviços e Spring Boot.',
         },
         {
           name: 'PDF para CSV',
@@ -289,6 +302,7 @@ export const t = {
       emailLabel: 'E-mail',
       phoneLabel: 'Telefone',
       githubLabel: 'GitHub',
+      linkedinLabel: 'LinkedIn',
       locationLabel: 'Localização',
       location: 'Salvador, Bahia, Brasil',
       cta: 'Enviar e-mail',

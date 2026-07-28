@@ -43,7 +43,7 @@ const pipeline = {
 const skillData = [
   ['Java', 'Python', 'Rust', 'TypeScript', 'SQL', 'JavaScript', 'C#', 'HTML/CSS', 'PowerShell'],
   ['AWS', 'Microsoft Azure', 'Google Cloud Platform', 'Docker', 'Docker Compose', 'CI/CD'],
-  ['Git', 'PostgreSQL', 'Linux', 'React', 'Vue.js', 'Google Workspace Admin', 'Microsoft 365 Admin'],
+  ['React', 'Spring Boot', 'FastAPI', 'Axum', 'PostgreSQL', 'Git', 'Linux', 'Vue.js', 'Google Workspace Admin', 'Microsoft 365 Admin'],
   ['Agile / Scrum', 'Kanban', 'RESTful APIs', 'Microservices', 'Design Patterns', 'OOP', 'SDLC', 'TDD'],
 ]
 

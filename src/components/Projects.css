@@ -183,9 +183,24 @@
   content: '';
   width: 5px;
   height: 5px;
+  flex-shrink: 0;
+}
+
+/* Solid and glowing reads as "this is running right now", so it is reserved
+   for work actually in production. */
+.project-card__badge--prod::before {
   background: var(--accent-cyan);
   box-shadow: 0 0 6px var(--accent-cyan);
-  flex-shrink: 0;
+}
+
+/* Hollow: built, but not deployed. Same mark, unlit. */
+.project-card__badge--wip {
+  color: var(--text-secondary);
+  border-color: var(--hair);
+}
+
+.project-card__badge--wip::before {
+  border: 1px solid var(--text-secondary);
 }
 
 .project-card__name {

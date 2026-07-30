@@ -10,8 +10,6 @@ export default function Hero() {
   const tx = t[lang].hero
   const glowLeftRef = useRef(null)
   const glowRightRef = useRef(null)
-  const stageRef = useRef(null)
-  const contentRef = useRef(null)
 
   // Monospace, so the swapping glyphs can't reflow anything around them —
   // which is why the effect stays off the display-scale role below.
@@ -29,17 +27,16 @@ export default function Hero() {
     let ticking = false
     const apply = () => {
       const y = window.scrollY
+      // Only the glows drift. Parallax used to run on the copy and the object
+      // band too, and that is what sliced them on the way out: content pushed
+      // down by scrollY * 0.07 rises at 93% of the page's speed while the
+      // hero's own bottom edge rises at 100%, so the edge catches up and
+      // `overflow: hidden` cuts through whatever line it reaches. These two are
+      // blurred blobs with no edges to sever, so they can still move.
       if (glowLeftRef.current)
         glowLeftRef.current.style.transform = `translateY(${y * 0.2}px)`
       if (glowRightRef.current)
         glowRightRef.current.style.transform = `translateY(${y * -0.14}px)`
-      // The band drifts faster than the copy, so the object reads as sitting
-      // deeper. Applied to the band and not the object itself, so it doesn't
-      // fight the float keyframes running on the object.
-      if (stageRef.current)
-        stageRef.current.style.transform = `translateY(${y * 0.16}px)`
-      if (contentRef.current)
-        contentRef.current.style.transform = `translateY(${y * 0.07}px)`
       ticking = false
     }
 
@@ -59,25 +56,16 @@ export default function Hero() {
       <div ref={glowLeftRef} className="hero__glow hero__glow--left" />
       <div ref={glowRightRef} className="hero__glow hero__glow--right" />
 
-      {/* Corner metadata. The name and location half of this moved into the
-          navbar, which is where it now leads the page from. */}
-      <div className="hero__corners hero__anim hero__anim--1">
-        <div className="hero__corner hero__corner--end">
-          <span className="hud hud--bright">{tx.portfolio}</span>
-          <span className="hud">{tx.role}</span>
-        </div>
-      </div>
-
       {/* The centrepiece gets its own flex band rather than being positioned
           absolutely. Taking part in the layout is what guarantees it can never
           land on top of the display type, whatever the viewport is. */}
-      <div ref={stageRef} className="hero__stage">
+      <div className="hero__stage">
         <div className="hero__object">
           <WireGlobe />
         </div>
       </div>
 
-      <div ref={contentRef} className="hero__content">
+      <div className="hero__content">
         <div className="hero__status-row hero__anim hero__anim--2">
           <span className="hud-box hero__status">
             <span className="hero__status-dot" aria-hidden="true" />

@@ -64,33 +64,6 @@
 }
 
 
-/* ── Corner metadata ── */
-.hero__corners {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  gap: var(--s6);
-}
-
-.hero__corner {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  border-left: 1px solid var(--hair);
-  padding-left: var(--s3);
-}
-
-.hero__corner--end {
-  text-align: right;
-  border-left: none;
-  border-right: 1px solid var(--hair);
-  padding-left: 0;
-  padding-right: var(--s3);
-  align-items: flex-end;
-}
-
 /* ── Main block ── */
 .hero__content {
   position: relative;
@@ -240,12 +213,9 @@
 }
 
 .social-link:hover {
-  background: var(--accent-cyan-glow);
-}
-
-.social-link:hover {
   color: var(--accent-cyan);
   border-color: var(--accent-cyan);
+  background: var(--accent-cyan-glow);
 }
 
 /* ── Hero enter animations ──
@@ -295,10 +265,6 @@
     padding: 6rem var(--section-px) var(--s8);
     min-height: 100svh; /* avoid mobile URL-bar jump vs 100vh */
   }
-
-  /* Now the only block in the row, and the navbar already carries the
-     identity, so the whole row goes at phone width. */
-  .hero__corners { display: none; }
 
   .hero__status-row { gap: var(--s3); margin-bottom: var(--s3); }
 

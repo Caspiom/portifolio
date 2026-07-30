@@ -302,7 +302,11 @@ function ProjectCard({ index, item, meta, badgeLabel, featured, delay = '' }) {
       <div className="project-card__top">
         <span className="project-card__index" aria-hidden="true">{index}</span>
         <span className="rule rule--dim" />
-        {meta.badge && <span className="project-card__badge">{badgeLabel}</span>}
+        {meta.badge && (
+          <span className={`project-card__badge project-card__badge--${meta.badge.replace('Badge', '')}`}>
+            {badgeLabel}
+          </span>
+        )}
         {meta.repo && <span className="project-card__arrow" aria-hidden="true">↗</span>}
       </div>
       <h3 className="project-card__name">{item.name}</h3>

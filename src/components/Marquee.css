@@ -1,0 +1,59 @@
+/* A hairline strip, not a coloured slab. The rest of the page is built from
+   1px rules, and a solid block of accent read as a foreign element sitting on
+   top of it rather than part of the same system. */
+.marquee {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border-top: 1px solid var(--hair);
+  border-bottom: 1px solid var(--hair);
+  padding: var(--s3) 0;
+  user-select: none;
+  /* Fades the text into the page edges so the loop has no hard cut. */
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
+}
+
+.marquee__inner {
+  display: flex;
+  width: max-content;
+  animation: marqueeSlide 46s linear infinite;
+}
+
+/* Each copy of the track is half the inner width, so -50% lands the second
+   copy exactly where the first started. */
+.marquee__track {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.marquee__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s4);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  padding-right: var(--s8);
+  white-space: nowrap;
+}
+
+/* The only colour in the band: a small square between entries, the same mark
+   the navbar and the timeline use. */
+.marquee__mark {
+  width: 4px;
+  height: 4px;
+  flex-shrink: 0;
+  background: var(--accent-cyan);
+}
+
+@keyframes marqueeSlide {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* A non-essential loop must be able to stop. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee__inner { animation: none; }
+}

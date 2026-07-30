@@ -2,6 +2,7 @@ import { useLang } from '../context/LanguageContext'
 import { t } from '../i18n/translations'
 import { useCountUp } from '../hooks/useCountUp'
 import CodeBg from './CodeBg'
+import SectionHead from './SectionHead'
 import './About.css'
 
 const PYTHON_CODE = `import boto3
@@ -52,8 +53,7 @@ export default function About() {
         snippets={[{ code: PYTHON_CODE, side: 'right', color: '#3572A5', rotate: 2, top: '5rem', opacity: 0.052 }]}
       />
       <div className="container">
-        <p className="section-tag reveal">{tx.label}</p>
-        <h2 className="section-title reveal d1">{tx.title}</h2>
+        <SectionHead id="about" label={tx.label} title={tx.title} />
 
         <div className="about__grid">
           <div className="about__text reveal d2">
@@ -63,10 +63,10 @@ export default function About() {
           </div>
 
           <div className="about__stats">
-            <StatCard target={3}  suffix="+" label={tx.stats.experience} delay="d2" />
-            <StatCard target={29} suffix="+" label={tx.stats.repos}      delay="d3" />
-            <StatCard target={5}  suffix="+" label={tx.stats.languages}  delay="d4" />
-            <StatCard target={3}  suffix=""  label={tx.stats.cloud}      delay="d5" />
+            <StatCard index="01" target={3}  suffix="+" label={tx.stats.experience} delay="d2" />
+            <StatCard index="02" target={29} suffix="+" label={tx.stats.repos}      delay="d3" />
+            <StatCard index="03" target={5}  suffix="+" label={tx.stats.languages}  delay="d4" />
+            <StatCard index="04" target={3}  suffix=""  label={tx.stats.cloud}      delay="d5" />
           </div>
         </div>
       </div>
@@ -74,16 +74,13 @@ export default function About() {
   )
 }
 
-function StatCard({ target, suffix = '', label, delay = '' }) {
+function StatCard({ index, target, suffix = '', label, delay = '' }) {
   const { displayValue, nodeRef } = useCountUp(target, suffix, { duration: 1100 })
   return (
-    <div ref={nodeRef} className={`stat-card reveal reveal--scale ${delay}`}>
+    <div ref={nodeRef} className={`stat-card tick reveal reveal--scale ${delay}`}>
+      <span className="stat-index hud" aria-hidden="true">{index}</span>
       <span className="stat-number">{displayValue}</span>
       <span className="stat-label">{label}</span>
     </div>
   )
-}
-
-export function SectionLabel({ children }) {
-  return <p className="section-tag">{children}</p>
 }

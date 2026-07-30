@@ -1,6 +1,7 @@
 import { useLang } from '../context/LanguageContext'
 import { t } from '../i18n/translations'
 import CodeBg from './CodeBg'
+import SectionHead from './SectionHead'
 import './Experience.css'
 
 const DOCKER_CODE = `# docker-compose.yml
@@ -88,8 +89,7 @@ export default function Experience() {
         ]}
       />
       <div className="container">
-        <p className="section-tag reveal">{tx.label}</p>
-        <h2 className="section-title reveal d1">{tx.title}</h2>
+        <SectionHead id="experience" label={tx.label} title={tx.title} />
 
         <div className="timeline">
           {tx.jobs.map((job, i) => (
@@ -122,8 +122,8 @@ export default function Experience() {
           ))}
         </div>
 
-        <div className="education-card reveal d2">
-          <div className="edu-icon">🎓</div>
+        <div className="education-card tick reveal d2">
+          <span className="hud education-card__tag">EDU</span>
           <div>
             <h3 className="exp-role">{tx.edu.degree}</h3>
             <p className="exp-company">{tx.edu.school}</p>

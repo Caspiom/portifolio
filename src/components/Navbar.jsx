@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react'
 import { useLang } from '../context/LanguageContext'
 import { t } from '../i18n/translations'
+import { useActiveSection } from '../hooks/useActiveSection'
+import { useScrambleText } from '../hooks/useScrambleText'
 import './Navbar.css'
 
+// Module-level so the identity is stable across renders and the observer in
+// useActiveSection isn't torn down and rebuilt on every one.
 const sectionIds = ['about', 'experience', 'skills', 'projects', 'contact']
 
 export default function Navbar() {
@@ -10,6 +14,12 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const { lang, toggle } = useLang()
   const tx = t[lang].nav
+  const active = useActiveSection(sectionIds)
+
+  // The identity block moved up here from the hero. Reads the location from
+  // the hero strings rather than copying it, so the two can't drift apart.
+  const based = t[lang].hero.based
+  const nameDecoded = useScrambleText('Lucas Gaspari', { delay: 250, duration: 900 })
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -39,7 +49,8 @@ export default function Navbar() {
     <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="navbar__inner">
         <a href="#hero" className="navbar__logo">
-          <span className="logo-bracket">&lt;</span>LG.Dev<span className="logo-bracket">/&gt;</span>
+          <span className="navbar__name">{nameDecoded}</span>
+          <span className="navbar__place">{based} [BR]</span>
         </a>
 
         <div className="navbar__right">
@@ -48,24 +59,32 @@ export default function Navbar() {
             aria-label="Primary"
             className={`navbar__links ${menuOpen ? 'open' : ''}`}
           >
-            {tx.links.map((label, i) => (
-              <a
-                key={label}
-                href={`#${sectionIds[i]}`}
-                className="navbar__link"
-                onClick={() => setMenuOpen(false)}
-              >
-                {label}
-              </a>
-            ))}
+            {tx.links.map((label, i) => {
+              const id = sectionIds[i]
+              const isActive = active === id
+              return (
+                <a
+                  key={id}
+                  href={`#${id}`}
+                  className={`navbar__link ${isActive ? 'is-active' : ''}`}
+                  aria-current={isActive ? 'true' : undefined}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {/* The filled square is the active marker; it holds its slot
+                      when inactive so labels never shift as you scroll. */}
+                  <span className="navbar__marker" aria-hidden="true" />
+                  {label}
+                </a>
+              )
+            })}
             <a
               href="https://github.com/Caspiom"
               target="_blank"
               rel="noopener noreferrer"
-              className="navbar__github btn-outline"
+              className="navbar__github"
               onClick={() => setMenuOpen(false)}
             >
-              {tx.github}
+              {tx.github} <span aria-hidden="true">↗</span>
             </a>
           </nav>
 
@@ -78,7 +97,8 @@ export default function Navbar() {
               aria-label={langLabel}
               title={langLabel}
             >
-              {lang === 'en' ? '🇧🇷' : '🇺🇸'}
+              <span className={lang === 'pt' ? 'is-on' : ''}>PT</span>
+              <span className={lang === 'en' ? 'is-on' : ''}>EN</span>
             </button>
 
             <button

@@ -1,0 +1,61 @@
+.globe {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  perspective: 900px;
+}
+
+/* A wide, soft bloom rather than a dark plate. Adding light lifts the sphere
+   off the rain; subtracting it just cut a visible hole in the rain. */
+.globe::before {
+  content: '';
+  position: absolute;
+  inset: -18%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(137, 87, 229, 0.16) 0%,
+    rgba(62, 204, 193, 0.07) 42%,
+    transparent 68%
+  );
+  pointer-events: none;
+}
+
+.globe__spin {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  /* The tilt is what stops the parallels collapsing into straight lines. */
+  transform: rotateX(-14deg);
+  animation: globeSpin 32s linear infinite;
+}
+
+@keyframes globeSpin {
+  from { transform: rotateX(-14deg) rotateY(0deg); }
+  to   { transform: rotateX(-14deg) rotateY(360deg); }
+}
+
+.globe__ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid transparent;
+}
+
+/* Meridians: upright rings turned around the axis. Perspective renders each
+   one as an ellipse, and the set reads as a sphere. */
+.globe__ring--meridian {
+  border-color: rgba(137, 87, 229, 0.5);
+  transform: rotateY(var(--deg));
+}
+
+/* Parallels: the same ring laid flat, raised to its latitude and shrunk to the
+   sphere's width at that height. */
+.globe__ring--parallel {
+  border-color: rgba(62, 204, 193, 0.42);
+  transform: translateY(var(--y)) rotateX(90deg) scale(var(--scale));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .globe__spin { animation: none; }
+}

@@ -32,6 +32,42 @@
   --font-sans: 'Inter', sans-serif;
   --font-mono: 'Departure Mono', 'JetBrains Mono', monospace;
 
+  /* ── Structure ──
+     The layout language is hairlines and right angles, not rounded cards and
+     shadows. Radius is a token pinned to 0 so any future exception is a
+     deliberate, visible edit rather than a drifting per-component value. */
+  --hair: rgba(137, 87, 229, 0.22);
+  --hair-dim: rgba(255, 255, 255, 0.08);
+  --radius: 0;
+
+  /* 4-unit spacing scale — gives the middle steps an 8-only scale misses */
+  --s1: 0.25rem;
+  --s2: 0.5rem;
+  --s3: 0.75rem;
+  --s4: 1rem;
+  --s6: 1.5rem;
+  --s8: 2rem;
+  --s12: 3rem;
+  --s16: 4rem;
+
+  /* ── Motion ──
+     Durations express distance and consequence: feedback is near-instant,
+     state changes are quick, only a deliberate entrance is allowed to take
+     its time. Natural deceleration everywhere; no bounce. */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 120ms;
+  --dur-base: 220ms;
+  --dur-slow: 420ms;
+  --dur-focal: 640ms;
+
+  /* The scroll-reveal transition, exposed as a token. Any element that both
+     reveals and has its own hover transition must append this to its
+     `transition` shorthand, because the shorthand replaces the whole list
+     and would otherwise drop the reveal. */
+  --reveal-transition:
+    opacity var(--dur-focal) var(--ease),
+    transform var(--dur-focal) var(--ease);
+
   /* Responsive spacing tokens — consumed by .section so a single media
      query below can retune every section's padding at once. */
   --section-px: 2rem;   /* horizontal inset */
@@ -49,8 +85,8 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  /* Guard against decorative absolute elements (code backgrounds, glows,
-     ghost numbers) ever pushing a horizontal scrollbar on small screens. */
+  /* Guard against decorative absolute elements (code backgrounds, glows)
+     ever pushing a horizontal scrollbar on small screens. */
   overflow-x: hidden;
 }
 
@@ -93,18 +129,239 @@ button {
   border-radius: 3px;
 }
 
-/* ── Scroll Reveal System ── */
-.reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition:
-    opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+/* One focus ring for the whole site, so keyboard state is never a
+   per-component afterthought. */
+:focus-visible {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 2px;
 }
 
-.reveal--left  { transform: translateX(-48px); }
-.reveal--right { transform: translateX(48px); }
-.reveal--scale { transform: scale(0.88) translateY(24px); }
+/* ══════════════════════════════════════════════════════════════
+   PRIMITIVES
+   The five marks the whole layout is built from. Every section
+   composes these rather than inventing its own borders and labels.
+   ══════════════════════════════════════════════════════════════ */
+
+/* Metadata voice: small, wide-tracked, uppercase mono. Used for anything
+   that annotates content rather than being content.
+
+   Colour note: at this size AA needs 4.5:1, and --text-muted only reaches
+   4.13:1 on --bg-primary. Anything readable therefore starts at
+   --text-secondary (7.67:1); --text-muted is reserved for marks that are
+   aria-hidden decoration, where no one has to read them. The same applies to
+   --accent (4.27:1), which stays on fills, borders and icons rather than
+   small text. */
+.hud {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.hud--accent { color: var(--accent-cyan); }
+.hud--bright { color: var(--text-primary); }
+/* Decorative only — see the contrast note above. */
+.hud--dim    { color: var(--text-muted); }
+
+/* Bordered chip. The site's only "container" shape. */
+.hud-box {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  padding: 0.35rem 0.6rem;
+  border: 1px solid var(--hair);
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* Hairline that eats the leftover space in a flex row. */
+.rule {
+  flex: 1;
+  height: 1px;
+  min-width: var(--s4);
+  background: var(--hair);
+}
+
+.rule--dim { background: var(--hair-dim); }
+
+/* Corner registration marks. Applied to a positioned parent; the marks are
+   two L-shaped brackets drawn with borders on the pseudo-elements. */
+.tick { position: relative; }
+
+.tick::before,
+.tick::after {
+  content: '';
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease);
+  pointer-events: none;
+}
+
+.tick::before {
+  top: 5px;
+  left: 5px;
+  border-top: 1px solid var(--accent-cyan);
+  border-left: 1px solid var(--accent-cyan);
+}
+
+.tick::after {
+  right: 5px;
+  bottom: 5px;
+  border-right: 1px solid var(--accent-cyan);
+  border-bottom: 1px solid var(--accent-cyan);
+}
+
+.tick:hover::before,
+.tick:hover::after,
+.tick:focus-visible::before,
+.tick:focus-visible::after {
+  opacity: 1;
+}
+
+/* Diagonal hatch fill for bounded panels. Deliberately 45° and scoped to a
+   small block — it reads as a drafting mark, not a page-wide grid. */
+.hatch {
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--hair) 0 1px,
+    transparent 1px 6px
+  );
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SECTION SHELL
+   ══════════════════════════════════════════════════════════════ */
+
+.section {
+  padding: var(--section-py) var(--section-px);
+  background-color: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Lift content above section-level decorative layers */
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Section header: index, label, rule to the edge, Japanese counterpart.
+   The index used to be a 12rem ghost numeral behind the title; here it is
+   the first thing you read, which is what it was always trying to be. */
+.section-head {
+  margin-bottom: var(--s8);
+}
+
+.section-head__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  margin-bottom: var(--s4);
+}
+
+.section-head__index {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.section-head__label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  flex-shrink: 0;
+}
+
+/* Decorative, and the glyphs would be read out character by character. */
+.section-head__ja {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  letter-spacing: 0.08em;
+}
+
+.section-title {
+  font-size: clamp(1.9rem, 4.5vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--text-primary);
+  max-width: 22ch;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   CONTROLS
+   ══════════════════════════════════════════════════════════════ */
+
+.btn-primary,
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s2);
+  min-height: var(--tap);
+  padding: 0.7rem 1.5rem;
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition:
+    background var(--dur-base) var(--ease),
+    border-color var(--dur-base) var(--ease),
+    color var(--dur-base) var(--ease);
+}
+
+.btn-primary {
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: transparent;
+  color: var(--text-primary);
+}
+
+.btn-ghost {
+  border: 1px solid var(--hair);
+  color: var(--text-secondary);
+}
+
+.btn-ghost:hover {
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+}
+
+/* ── Scroll Reveal System ──
+   Retuned: the old 1.4s transition plus delays up to 0.84s meant the last
+   element in a section landed ~2.2s after it came into view, which reads as
+   lag rather than choreography. Now a 560ms arrival with the stagger capped
+   at six 60ms steps. */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: var(--reveal-transition);
+}
+
+.reveal--left  { transform: translateX(-28px); }
+.reveal--right { transform: translateX(28px); }
+.reveal--scale { transform: translateY(16px) scale(0.97); }
 
 .reveal.revealed {
   opacity: 1;
@@ -112,13 +369,13 @@ button {
 }
 
 /* Stagger delays */
-.d1 { transition-delay: 0.12s; }
-.d2 { transition-delay: 0.24s; }
-.d3 { transition-delay: 0.36s; }
-.d4 { transition-delay: 0.48s; }
-.d5 { transition-delay: 0.60s; }
-.d6 { transition-delay: 0.72s; }
-.d7 { transition-delay: 0.84s; }
+.d1 { transition-delay: 0.06s; }
+.d2 { transition-delay: 0.12s; }
+.d3 { transition-delay: 0.18s; }
+.d4 { transition-delay: 0.24s; }
+.d5 { transition-delay: 0.30s; }
+.d6 { transition-delay: 0.36s; }
+.d7 { transition-delay: 0.36s; }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal,
@@ -129,6 +386,9 @@ button {
     transform: none;
     transition: none;
   }
+
+  .tick::before,
+  .tick::after { transition: none; }
 }
 
 /* ── Responsive spacing ──
@@ -144,4 +404,10 @@ button {
     --section-px: 1.25rem;
     --section-py: 4rem;
   }
+
+  .section-head { margin-bottom: var(--s6); }
+
+  /* The Japanese counterpart is the first thing to go: it is an accent, and
+     the rule needs the width more than the accent does. */
+  .section-head__ja { display: none; }
 }

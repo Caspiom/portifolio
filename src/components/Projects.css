@@ -3,31 +3,18 @@
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   position: relative;
-  padding-top: 7rem;
-  /* dot grid (cyan tint) + crisp beam */
+  /* Dotted grid removed — the section rule and the card hairlines carry the
+     structure now. */
   background-image:
-    radial-gradient(circle, rgba(62, 204, 193, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, transparent 5%, rgba(62, 204, 193, 0.5) 30%, rgba(137, 87, 229, 0.7) 70%, transparent 95%);
-  background-size: 28px 28px, 100% 1px;
-  background-repeat: repeat, no-repeat;
-  background-position: 0 0, 0 0;
+    linear-gradient(90deg, transparent 4%, var(--accent-cyan) 32%, var(--accent) 68%, transparent 96%);
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
 }
 
-.projects::before {
-  content: '04';
-  position: absolute;
-  top: -0.5rem;
-  right: 1.5rem;
-  font-size: 12rem;
-  font-weight: 900;
-  font-family: var(--font-mono);
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(62, 204, 193, 0.06);
-  line-height: 1;
-  pointer-events: none;
-  user-select: none;
-  z-index: 0;
-}
+/* Double class so this always beats the .section shorthand in index.css,
+   independent of how the bundler orders the two files. */
+.section.projects { padding-top: 7rem; }
 
 .projects::after {
   content: '';
@@ -40,10 +27,6 @@
   background: radial-gradient(ellipse at top center, rgba(62, 204, 193, 0.05) 0%, rgba(137, 87, 229, 0.03) 50%, transparent 70%);
   pointer-events: none;
   z-index: 0;
-}
-
-.projects .section-tag {
-  color: var(--accent);
 }
 
 /* Code background snippets */
@@ -81,56 +64,97 @@
   z-index: 2;
 }
 
+/* Featured pair shares its hairlines with the grid below it. */
 .projects__featured {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.25rem;
-  margin-bottom: 3rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--hair);
+  border-left: 1px solid var(--hair);
+  margin-bottom: var(--s12);
+}
+
+/* With an odd number of featured projects the last row would be half empty,
+   and because the grid's frame is drawn from each card's own right and bottom
+   borders, the gap reads as a broken box rather than white space. Letting the
+   last card span the row closes it. */
+.projects__featured > :last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+.projects__other-head {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  margin-bottom: var(--s4);
 }
 
 .projects__other-title {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  letter-spacing: 1px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  margin-bottom: 1.25rem;
+  flex-shrink: 0;
 }
 
 .projects__grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-bottom: 2.5rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--hair);
+  border-left: 1px solid var(--hair);
+  margin-bottom: var(--s8);
 }
 
 .project-card {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  padding: 1.5rem;
-  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  gap: var(--s3);
+  border-right: 1px solid var(--hair);
+  border-bottom: 1px solid var(--hair);
+  border-radius: var(--radius);
+  padding: var(--s6);
+  /* No lift, no shadow: the state change is the surface and the border,
+     which also keeps the row from shifting under the cursor. */
+  transition: background var(--dur-base) var(--ease), var(--reveal-transition);
   cursor: pointer;
   position: relative;
   overflow: hidden;
 }
 
 .project-card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(99, 102, 241, 0.3);
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+  background: rgba(137, 87, 229, 0.06);
 }
 
 .project-card--featured {
-  padding: 2rem;
+  padding: var(--s8);
 }
 
 .project-card__top {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: var(--s3);
+}
+
+.project-card__index {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--accent-cyan);
+  flex-shrink: 0;
+}
+
+.project-card__arrow {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+  transition: color var(--dur-base) var(--ease), transform var(--dur-base) var(--ease);
+}
+
+.project-card:hover .project-card__arrow {
+  color: var(--accent-cyan);
+  transform: translate(2px, -2px);
 }
 
 /* Cards without a public repo aren't clickable, so drop the link affordance */
@@ -138,36 +162,39 @@
   cursor: default;
 }
 
-/* Status badge that replaces the external-link icon on client work */
+/* Status badge that replaces the external-link arrow on client work */
 .project-card__badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  font-size: 0.65rem;
-  letter-spacing: 0.5px;
+  gap: var(--s1);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: 0.25rem 0.6rem;
-  border-radius: 999px;
+  padding: 0.2rem 0.45rem;
+  border-radius: var(--radius);
   color: var(--accent-cyan);
-  background: rgba(62, 204, 193, 0.1);
-  border: 1px solid rgba(62, 204, 193, 0.28);
+  border: 1px solid rgba(62, 204, 193, 0.3);
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .project-card__badge::before {
   content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
+  width: 5px;
+  height: 5px;
   background: var(--accent-cyan);
   box-shadow: 0 0 6px var(--accent-cyan);
+  flex-shrink: 0;
 }
 
 .project-card__name {
   font-size: 1rem;
   font-weight: 600;
   color: var(--text-primary);
-  transition: color 0.2s;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+  transition: color var(--dur-base) var(--ease);
 }
 
 .project-card:hover .project-card__name {
@@ -175,64 +202,79 @@
 }
 
 .project-card--featured .project-card__name {
-  font-size: 1.15rem;
+  font-size: 1.2rem;
 }
 
 .project-card__desc {
   font-size: 0.875rem;
   color: var(--text-secondary);
-  line-height: 1.65;
+  line-height: 1.7;
   flex: 1;
+  max-width: 62ch;
 }
 
 .project-card__footer {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  gap: 0.5rem;
+  gap: var(--s2);
   flex-wrap: wrap;
+  padding-top: var(--s3);
+  border-top: 1px solid var(--hair-dim);
 }
 
 .project-card__tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.3rem;
+  gap: var(--s1);
 }
 
 .project-card__lang {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  font-size: 0.75rem;
-  color: var(--text-muted);
+  gap: var(--s1);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
   font-family: var(--font-mono);
   white-space: nowrap;
 }
 
 .lang-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
+  width: 7px;
+  height: 7px;
   flex-shrink: 0;
 }
 
 .projects__github-cta {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-card,
+  .project-card__arrow,
+  .project-card__name { transition: none; }
+
+  .project-card:hover .project-card__arrow { transform: none; }
 }
 
 @media (max-width: 900px) {
   .projects__featured { grid-template-columns: 1fr; }
-  .projects__grid { grid-template-columns: repeat(2, 1fr); }
+  .projects__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 600px) {
-  .projects { padding-top: 5rem; }
-  .projects::before { font-size: 6rem; top: -0.25rem; right: 0.75rem; }
+  .section.projects { padding-top: 5rem; }
   .projects__grid { grid-template-columns: 1fr; }
 
+  .project-card { padding: var(--s4); }
   /* Featured cards drop their extra padding at phone width */
-  .project-card--featured { padding: 1.5rem; }
+  .project-card--featured { padding: var(--s4); }
+
+  .projects__github-cta { justify-content: stretch; }
+  .projects__github-cta .btn-ghost { width: 100%; }
 
   /* Decorative side code drifts off-canvas on small screens — hide it so it
      can't sit faintly behind the cards */

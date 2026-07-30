@@ -1,6 +1,7 @@
 import { useLang } from '../context/LanguageContext'
 import { t } from '../i18n/translations'
 import CodeBg from './CodeBg'
+import SectionHead from './SectionHead'
 import './Skills.css'
 
 const TS_CODE = `interface Repository<T, ID> {
@@ -58,15 +59,16 @@ export default function Skills() {
         snippets={[{ code: TS_CODE, side: 'left', color: '#3178c6', rotate: -2, top: '4rem', opacity: 0.052 }]}
       />
       <div className="container">
-        <p className="section-tag reveal">{tx.label}</p>
-        <h2 className="section-title reveal d1">{tx.title}</h2>
+        <SectionHead id="skills" label={tx.label} title={tx.title} />
 
         <div className="skills__grid">
           {tx.groups.map((group, i) => (
-            <div key={group.category} className={`skill-group reveal reveal--scale d${i + 2}`}>
+            <div key={i} className={`skill-group reveal d${i + 2}`}>
               <div className="skill-group__header">
-                <span className="skill-group__icon mono">{group.icon}</span>
+                <span className="skill-group__icon mono" aria-hidden="true">{group.icon}</span>
                 <h3 className="skill-group__title">{group.category}</h3>
+                <span className="rule rule--dim" />
+                <span className="hud skill-group__count">{String(skillData[i].length).padStart(2, '0')}</span>
               </div>
               <div className="skill-group__pills">
                 {skillData[i].map(skill => (
@@ -78,13 +80,14 @@ export default function Skills() {
         </div>
 
         <div className="skills__lang reveal d2">
+          <span className="hud skills__lang-label">LANG</span>
           <div className="lang-badge">
-            <span className="lang-flag">🇧🇷</span>
+            <span className="lang-code">PT</span>
             <span>Português</span>
             <span className="lang-level">{tx.langNative}</span>
           </div>
           <div className="lang-badge">
-            <span className="lang-flag">🇺🇸</span>
+            <span className="lang-code">EN</span>
             <span>English</span>
             <span className="lang-level">{tx.langFluent}</span>
           </div>

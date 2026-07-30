@@ -1,6 +1,7 @@
 import { useRef, useCallback } from 'react'
 import { useLang } from '../context/LanguageContext'
 import { t } from '../i18n/translations'
+import SectionHead from './SectionHead'
 import './Projects.css'
 
 const MATRIX_CHARS = 'アイウエオカキクケコ0123456789ABCDEF<>{}[]=+*#@!'
@@ -11,7 +12,10 @@ const TEAL   = [62, 204, 193]
 // the two are zipped by index.
 const projectMeta = [
   // Client code, so there's no public repo — the card shows a production badge instead.
-  { lang: 'Rust',   langColor: '#dea584', tags: ['Rust', 'Axum', 'Power BI', 'Entra ID', 'REST API'], repo: null, badge: true, featured: true },
+  { lang: 'Rust',   langColor: '#dea584', tags: ['Rust', 'Axum', 'Power BI', 'Entra ID', 'REST API'], repo: null, badge: 'prodBadge', featured: true },
+  // Not deployed yet, and both repos are private, so there is nothing to link
+  // to. The badge states where it actually stands.
+  { lang: 'Python', langColor: '#3572A5', tags: ['Python', 'FastAPI', 'Next.js', 'Playwright', 'Docker'], repo: null, badge: 'wipBadge', featured: true },
   { lang: 'Java',   langColor: '#b07219', tags: ['Java', 'Spring Boot', 'React', 'Hackathon'], repo: 'https://github.com/Caspiom/HACKATHON-TJBA-2025', featured: true },
   { lang: 'Java',   langColor: '#b07219', tags: ['Java', 'Spring Boot', 'Microservices'], repo: 'https://github.com/Caspiom/eurekaServerMicrosServices', featured: true },
   { lang: 'Python', langColor: '#3572A5', tags: ['Python', 'Machine Learning', 'Math'], repo: 'https://github.com/Caspiom/Neural_Network_From_Scratch', featured: true },
@@ -153,19 +157,35 @@ export default function Projects() {
       <pre className="code-bg code-bg--java" aria-hidden="true">{JAVA_CODE}</pre>
 
       <div className="container">
-        <p className="section-tag reveal">{tx.label}</p>
-        <h2 className="section-title reveal d1">{tx.title}</h2>
+        <SectionHead id="projects" label={tx.label} title={tx.title} />
 
         <div className="projects__featured">
           {featured.map((item, i) => (
-            <ProjectCard key={item.name} item={item} meta={featuredMeta[i]} badgeLabel={tx.prodBadge} featured delay={`d${i + 2}`} />
+            <ProjectCard
+              key={i}
+              index={String(i + 1).padStart(2, '0')}
+              item={item}
+              meta={featuredMeta[i]}
+              badgeLabel={featuredMeta[i].badge ? tx[featuredMeta[i].badge] : undefined}
+              featured
+              delay={`d${Math.min(i + 2, 7)}`}
+            />
           ))}
         </div>
 
-        <h3 className="projects__other-title mono reveal d1">{tx.otherTitle}</h3>
+        <div className="projects__other-head reveal d1">
+          <h3 className="projects__other-title">{tx.otherTitle}</h3>
+          <span className="rule rule--dim" />
+        </div>
         <div className="projects__grid">
           {rest.map((item, i) => (
-            <ProjectCard key={item.name} item={item} meta={restMeta[i]} delay={`d${Math.min(i + 2, 7)}`} />
+            <ProjectCard
+              key={i}
+              index={String(featured.length + i + 1).padStart(2, '0')}
+              item={item}
+              meta={restMeta[i]}
+              delay={`d${Math.min(i + 2, 7)}`}
+            />
           ))}
         </div>
 
@@ -179,7 +199,7 @@ export default function Projects() {
   )
 }
 
-function ProjectCard({ item, meta, badgeLabel, featured, delay = '' }) {
+function ProjectCard({ index, item, meta, badgeLabel, featured, delay = '' }) {
   const canvasRef  = useRef(null)
   const rafRef     = useRef(null)
   const activeRef  = useRef(false)
@@ -260,7 +280,7 @@ function ProjectCard({ item, meta, badgeLabel, featured, delay = '' }) {
   return (
     <Tag
       {...linkProps}
-      className={`project-card ${featured ? 'project-card--featured' : ''} ${meta.repo ? '' : 'project-card--static'} reveal reveal--scale ${delay}`}
+      className={`project-card tick ${featured ? 'project-card--featured' : ''} ${meta.repo ? '' : 'project-card--static'} reveal reveal--scale ${delay}`}
       onMouseEnter={startMatrix}
       onMouseLeave={stopMatrix}
     >
@@ -280,10 +300,10 @@ function ProjectCard({ item, meta, badgeLabel, featured, delay = '' }) {
       />
 
       <div className="project-card__top">
-        <FolderIcon />
-        {meta.badge
-          ? <span className="project-card__badge mono">{badgeLabel}</span>
-          : <ExternalIcon />}
+        <span className="project-card__index" aria-hidden="true">{index}</span>
+        <span className="rule rule--dim" />
+        {meta.badge && <span className="project-card__badge">{badgeLabel}</span>}
+        {meta.repo && <span className="project-card__arrow" aria-hidden="true">↗</span>}
       </div>
       <h3 className="project-card__name">{item.name}</h3>
       <p className="project-card__desc">{item.description}</p>
@@ -299,23 +319,5 @@ function ProjectCard({ item, meta, badgeLabel, featured, delay = '' }) {
         </div>
       </div>
     </Tag>
-  )
-}
-
-function FolderIcon() {
-  return (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--accent-cyan)' }}>
-      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
-    </svg>
-  )
-}
-
-function ExternalIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--text-muted)' }}>
-      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-      <polyline points="15 3 21 3 21 9" />
-      <line x1="10" y1="14" x2="21" y2="3" />
-    </svg>
   )
 }

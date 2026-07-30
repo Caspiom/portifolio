@@ -1,30 +1,19 @@
-.contact {
-  text-align: center;
-  padding-top: 8rem;
-  padding-bottom: 10rem;
-  /* Crisp 1px symmetric beam */
-  background-image:
-    linear-gradient(90deg, transparent 20%, rgba(137, 87, 229, 0.6) 42%, rgba(62, 204, 193, 0.6) 58%, transparent 80%);
-  background-size: 100% 1px;
-  background-repeat: no-repeat;
-  background-position: 0 0;
+/* Double class so this always beats the .section shorthand in index.css,
+   independent of how the bundler orders the two files. */
+.section.contact {
+  padding-top: 0;
+  padding-bottom: 8rem;
 }
 
-.contact::before {
-  content: '05';
-  position: absolute;
-  top: -0.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 12rem;
-  font-weight: 900;
-  font-family: var(--font-mono);
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(137, 87, 229, 0.05);
-  line-height: 1;
-  pointer-events: none;
-  user-select: none;
-  z-index: 0;
+/* The band is flush with the section top and runs edge to edge; it replaces
+   the 1px rule the other sections open with. */
+.contact .marquee {
+  margin-left: calc(var(--section-px) * -1);
+  margin-right: calc(var(--section-px) * -1);
+}
+
+.contact .container {
+  padding-top: var(--section-py);
 }
 
 .contact::after {
@@ -40,51 +29,71 @@
   z-index: 0;
 }
 
-/* Gradient section title for the final CTA */
+/* The closing statement gets display scale. Solid colour, not a gradient:
+   this is the one line on the page that most needs to be legible. */
 .contact .section-title {
-  background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-cyan));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  max-width: 16ch;
 }
 
 .contact__inner {
-  max-width: 680px;
-  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.contact__lead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s8);
+  margin-bottom: var(--s12);
+  padding-bottom: var(--s4);
+  border-bottom: 1px solid var(--hair);
 }
 
 .contact__desc {
   color: var(--text-secondary);
-  font-size: 1.05rem;
+  font-size: 1rem;
   line-height: 1.8;
-  margin-bottom: 3rem;
+  max-width: 52ch;
 }
 
+.contact__ja {
+  font-size: clamp(1.1rem, 2.4vw, 1.6rem);
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Four contact routes sharing hairlines, same table treatment as the stats
+   and the skill groups. */
 .contact__cards {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  margin-bottom: 2.5rem;
-  text-align: left;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--hair);
+  border-left: 1px solid var(--hair);
+  margin-bottom: var(--s8);
 }
 
 .contact-card {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  padding: 1.25rem;
-  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+  gap: var(--s4);
+  border-right: 1px solid var(--hair);
+  border-bottom: 1px solid var(--hair);
+  border-radius: var(--radius);
+  padding: var(--s4) var(--s6);
+  /* No lift: hovering a link should not move the thing you are aiming at. */
+  transition: background var(--dur-base) var(--ease), var(--reveal-transition);
   color: inherit;
+  min-width: 0;
 }
 
 .contact-card:hover {
-  border-color: var(--border);
-  background: var(--bg-card-hover);
-  transform: translateY(-2px);
+  background: rgba(137, 87, 229, 0.06);
 }
 
 .contact-card--location {
@@ -92,51 +101,67 @@
 }
 
 .contact-card--location:hover {
-  transform: none;
+  background: none;
 }
 
 .contact-card__icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  background: rgba(99, 102, 241, 0.1);
-  border: 1px solid rgba(99, 102, 241, 0.2);
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius);
+  border: 1px solid var(--hair);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   color: var(--accent);
+  transition: color var(--dur-base) var(--ease), border-color var(--dur-base) var(--ease);
+}
+
+.contact-card:hover .contact-card__icon {
+  color: var(--accent-cyan);
+  border-color: var(--accent-cyan);
 }
 
 .contact-card__label {
-  font-size: 0.72rem;
-  color: var(--text-muted);
+  font-size: 0.65rem;
+  color: var(--text-secondary);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.12em;
   font-family: var(--font-mono);
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.15rem;
 }
 
 .contact-card__value {
   font-size: 0.875rem;
   color: var(--text-primary);
   font-weight: 500;
+  /* Long addresses shouldn't push the grid wider than its column. */
+  overflow-wrap: anywhere;
 }
 
 .contact__cta {
   display: inline-flex;
 }
 
-@media (max-width: 600px) {
-  .contact {
-    padding-top: 5rem;
-    padding-bottom: 6rem;
-  }
-  .contact::before { font-size: 6rem; }
-  .contact__desc { margin-bottom: 2rem; }
-  .contact__cards { grid-template-columns: 1fr; }
-  .contact-card { padding: 1rem; }
+@media (prefers-reduced-motion: reduce) {
+  .contact-card,
+  .contact-card__icon { transition: none; }
+}
 
-  /* Full-width CTA is an easier target than a centered pill on mobile */
+@media (max-width: 800px) {
+  .contact__lead {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s4);
+  }
+}
+
+@media (max-width: 600px) {
+  .section.contact { padding-bottom: 5rem; }
+  .contact__lead { margin-bottom: var(--s8); }
+  .contact__cards { grid-template-columns: 1fr; }
+  .contact-card { padding: var(--s4); }
+
+  /* Full-width CTA is an easier target than an inline button on mobile */
   .contact__cta { width: 100%; }
 }

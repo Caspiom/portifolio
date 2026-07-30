@@ -1,80 +1,17 @@
-.section {
-  padding: var(--section-py) var(--section-px);
-  background-color: transparent;
-  position: relative;
-  overflow: hidden;
-}
+/* .section, .container, .section-head and .section-title now live in
+   index.css — they are shared by every section, not owned by About. */
 
-/* Lift content above section-level pseudo-elements */
-.container {
-  position: relative;
-  z-index: 1;
-}
-
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-/* Shared section tag (replaces the decorated label) */
-.section-tag {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--accent-cyan);
-  letter-spacing: 1px;
-  margin-bottom: 0.6rem;
-  text-transform: uppercase;
-}
-
-/* Keep SectionLabel export working in other components */
-.section-label {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  color: var(--accent-cyan);
-  font-size: 0.78rem;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-bottom: 0.6rem;
-  font-family: var(--font-mono);
-}
-
-.section-label__line { display: none; }
-
-.section-title {
-  font-size: clamp(1.8rem, 4vw, 2.4rem);
-  font-weight: 700;
-  letter-spacing: -1px;
-  margin-bottom: 3rem;
-  color: var(--text-primary);
-}
-
-/* ── About identity ── */
-.about {
+.section.about {
   padding-top: 8rem;
-  /* Crisp 1px beam separator */
+}
+
+.about {
+  /* The rule that opens the section. Same mark the headers use, at page width. */
   background-image:
-    linear-gradient(90deg, transparent 5%, rgba(137, 87, 229, 0.75) 35%, rgba(62, 204, 193, 0.5) 65%, transparent 95%);
+    linear-gradient(90deg, transparent 4%, var(--accent) 32%, var(--accent-cyan) 68%, transparent 96%);
   background-size: 100% 1px;
   background-repeat: no-repeat;
   background-position: 0 0;
-}
-
-/* Ghost section number */
-.about::before {
-  content: '01';
-  position: absolute;
-  top: -0.5rem;
-  right: 1.5rem;
-  font-size: 12rem;
-  font-weight: 900;
-  font-family: var(--font-mono);
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(137, 87, 229, 0.07);
-  line-height: 1;
-  pointer-events: none;
-  user-select: none;
-  z-index: 0;
 }
 
 /* Ambient glow — left purple */
@@ -90,24 +27,26 @@
   z-index: 0;
 }
 
-/* ── About layout */
+/* ── About layout ── */
 .about__grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: var(--s16);
   align-items: start;
 }
 
 .about__text {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: var(--s4);
 }
 
 .about__text p {
   color: var(--text-secondary);
   font-size: 1rem;
   line-height: 1.85;
+  /* Comfortable measure regardless of how wide the column gets. */
+  max-width: 68ch;
 }
 
 .about__text strong {
@@ -115,63 +54,65 @@
   font-weight: 600;
 }
 
+/* Stats read as a data table, not four floating cards: shared hairlines
+   instead of four separate boxes. */
 .about__stats {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  border-top: 1px solid var(--hair);
+  border-left: 1px solid var(--hair);
 }
 
 .stat-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
-  transition: border-color 0.2s, background 0.2s;
+  gap: var(--s1);
+  padding: var(--s6);
+  border-right: 1px solid var(--hair);
+  border-bottom: 1px solid var(--hair);
+  transition: background var(--dur-base) var(--ease), var(--reveal-transition);
 }
 
 .stat-card:hover {
-  border-color: var(--border);
-  background: var(--bg-card-hover);
+  background: rgba(137, 87, 229, 0.05);
 }
 
+.stat-index {
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+/* Solid, not a gradient: the number is the information, and a gradient
+   across it only makes it harder to read. */
 .stat-number {
-  font-size: 2.2rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, var(--accent), var(--accent-cyan));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: -1px;
+  font-family: var(--font-mono);
+  font-size: 2.4rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
   line-height: 1;
 }
 
 .stat-label {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  font-weight: 500;
-  letter-spacing: 0.3px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  line-height: 1.5;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .about__grid {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: var(--s12);
   }
 }
 
 @media (max-width: 600px) {
-  .about { padding-top: 5rem; }
+  .section.about { padding-top: 5rem; }
 
-  .section-title { margin-bottom: 2rem; }
-
-  /* Ghost section number: shrink so it stays ambient, never crowds the title */
-  .about::before { font-size: 6rem; top: -0.25rem; right: 0.75rem; }
-
-  /* Two-up stat grid stays 2-up (numbers are short) but tightens up */
-  .about__stats { gap: 0.75rem; }
-  .stat-card { padding: 1.25rem; }
+  .stat-card { padding: var(--s4); }
   .stat-number { font-size: 1.9rem; }
 }

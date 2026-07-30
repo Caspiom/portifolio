@@ -1,6 +1,8 @@
 import { useLang } from '../context/LanguageContext'
 import { t } from '../i18n/translations'
 import CodeBg from './CodeBg'
+import SectionHead from './SectionHead'
+import Marquee from './Marquee'
 import './Contact.css'
 
 const TERMINAL_CODE = `$ git clone https://github.com/Caspiom/portfolio
@@ -46,15 +48,20 @@ export default function Contact() {
 
         snippets={[{ code: TERMINAL_CODE, side: 'right', color: '#3eccc1', rotate: 1.5, top: '3rem', opacity: 0.05 }]}
       />
+      <Marquee items={tx.marquee} />
+
       <div className="container">
-        <p className="section-tag reveal">{tx.label}</p>
-        <h2 className="section-title reveal d1">{tx.title}</h2>
+        <SectionHead id="contact" label={tx.label} title={tx.title} />
 
         <div className="contact__inner">
-          <p className="contact__desc reveal d2">{tx.desc}</p>
+          <div className="contact__lead reveal d2">
+            <p className="contact__desc">{tx.desc}</p>
+            {/* Decorative: "thank you", echoing the matrix script behind it. */}
+            <span className="contact__ja" aria-hidden="true">ありがとう</span>
+          </div>
 
           <div className="contact__cards">
-            <a href="mailto:lucasamsg6@gmail.com" className="contact-card reveal d2">
+            <a href="mailto:lucasamsg6@gmail.com" className="contact-card tick reveal d2">
               <div className="contact-card__icon"><MailIcon /></div>
               <div>
                 <div className="contact-card__label">{tx.emailLabel}</div>
@@ -62,7 +69,7 @@ export default function Contact() {
               </div>
             </a>
 
-            <a href="https://github.com/Caspiom" target="_blank" rel="noopener noreferrer" className="contact-card reveal d3">
+            <a href="https://github.com/Caspiom" target="_blank" rel="noopener noreferrer" className="contact-card tick reveal d3">
               <div className="contact-card__icon"><GithubIcon /></div>
               <div>
                 <div className="contact-card__label">{tx.githubLabel}</div>
@@ -70,7 +77,7 @@ export default function Contact() {
               </div>
             </a>
 
-            <a href="https://www.linkedin.com/in/lucas-gaspari/" target="_blank" rel="noopener noreferrer" className="contact-card reveal d4">
+            <a href="https://www.linkedin.com/in/lucas-gaspari/" target="_blank" rel="noopener noreferrer" className="contact-card tick reveal d4">
               <div className="contact-card__icon"><LinkedinIcon /></div>
               <div>
                 <div className="contact-card__label">{tx.linkedinLabel}</div>

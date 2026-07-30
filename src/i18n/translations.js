@@ -6,11 +6,17 @@ export const t = {
     },
     hero: {
       greeting: '// Salvador, BA',
-      title: 'Full-Stack Developer | Software Engineering Student',
-      bio: 'I build full-stack applications and REST APIs, focused on systems integration and backend work. I work with Java, Python and Rust, across AWS and Azure. Currently studying at UCSAL and always shipping something new.',
+      roleBig: 'Full-Stack Developer',
+      student: 'Software Engineering Student',
+      bio: 'I build full-stack applications and REST APIs, focused on systems integration and backend work. I work with <strong>Java, Python and Rust</strong>, across <strong>AWS and Azure</strong>. Currently studying at <strong>UCSAL</strong> and always shipping something new.',
       viewProjects: 'See my work',
       getInTouch: 'Get in touch',
       scroll: 'scroll',
+      status: 'Open to work',
+      role: 'Full-Stack',
+      portfolio: 'Portfolio 2026',
+      based: 'Salvador, BA',
+      socials: 'Elsewhere',
     },
     about: {
       label: 'about',
@@ -90,10 +96,15 @@ export const t = {
       otherTitle: 'other stuff',
       githubCta: 'All 29 repos on GitHub →',
       prodBadge: 'Production · Real client',
+      wipBadge: 'In development',
       items: [
         {
           name: 'Power BI Embedded Reports (Rust API)',
           description: 'A Rust (Axum) API that integrates Power BI Embedded using app-owns-data, authenticating through an Entra ID app registration to deliver reports to end users right inside the application. In production, serving a real client.',
+        },
+        {
+          name: 'AchadinhosBr',
+          description: 'Full-stack deals aggregator. The Python backend scrapes 12 stores with Playwright, classifies and de-duplicates the results, rewrites them as affiliate links and publishes to Telegram, Discord and X on a schedule. A FastAPI service serves the same catalogue to the Next.js site, with search, filters and pagination, all orchestrated with Docker Compose.',
         },
         {
           name: 'HACKATHON-TJBA-2025',
@@ -143,6 +154,7 @@ export const t = {
       locationLabel: 'Location',
       location: 'Salvador, Bahia, Brazil',
       cta: 'Send an email',
+      marquee: ['<h1>contact</h1>', '<p>drop me a line</p>', '<a>lucas gaspari</a>'],
     },
     game: {
       label: 'just for fun',
@@ -157,6 +169,7 @@ export const t = {
     },
     footer: {
       built: 'Designed & Built by',
+      backToTop: 'Back to top',
     },
   },
 
@@ -167,11 +180,17 @@ export const t = {
     },
     hero: {
       greeting: '// Salvador, BA',
-      title: 'Desenvolvedor Full-Stack | Estudante de Engenharia de Software',
-      bio: 'Construo aplicações full-stack e APIs REST, com foco em integração de sistemas e backend. Trabalho com Java, Python e Rust, em ambientes AWS e Azure. Atualmente estudando na UCSAL e sempre entregando algo novo.',
+      roleBig: 'Desenvolvedor Full-Stack',
+      student: 'Estudante de Engenharia de Software',
+      bio: 'Construo aplicações full-stack e APIs REST, com foco em integração de sistemas e backend. Trabalho com <strong>Java, Python e Rust</strong>, em ambientes <strong>AWS e Azure</strong>. Atualmente estudando na <strong>UCSAL</strong> e sempre entregando algo novo.',
       viewProjects: 'Ver meus projetos',
       getInTouch: 'Entrar em contato',
       scroll: 'rolar',
+      status: 'Disponível para trabalho',
+      role: 'Full-Stack',
+      portfolio: 'Portfólio 2026',
+      based: 'Salvador, BA',
+      socials: 'Em outros lugares',
     },
     about: {
       label: 'sobre',
@@ -251,10 +270,15 @@ export const t = {
       otherTitle: 'outras coisas',
       githubCta: 'Todos os 29 repos no GitHub →',
       prodBadge: 'Produção · Cliente real',
+      wipBadge: 'Em desenvolvimento',
       items: [
         {
           name: 'Relatórios Power BI Embedded (API em Rust)',
           description: 'API em Rust (Axum) que integra o Power BI Embedded no modelo app-owns-data, com autenticação via registro de app no Entra ID, entregando relatórios a usuários finais direto na aplicação. Em produção, atendendo cliente real.',
+        },
+        {
+          name: 'AchadinhosBr',
+          description: 'Agregador de promoções full-stack. O backend em Python raspa 12 lojas com Playwright, classifica, remove duplicatas, converte em links de afiliado e publica no Telegram, Discord e X em intervalos agendados. Uma API FastAPI serve o mesmo catálogo para o site em Next.js, com busca, filtros e paginação, tudo orquestrado com Docker Compose.',
         },
         {
           name: 'HACKATHON-TJBA-2025',
@@ -304,6 +328,7 @@ export const t = {
       locationLabel: 'Localização',
       location: 'Salvador, Bahia, Brasil',
       cta: 'Enviar e-mail',
+      marquee: ['<h1>contato</h1>', '<p>vamos conversar</p>', '<a>lucas gaspari</a>'],
     },
     game: {
       label: 'só pra divertir',
@@ -318,6 +343,20 @@ export const t = {
     },
     footer: {
       built: 'Desenhado & Desenvolvido por',
+      backToTop: 'Voltar ao topo',
     },
   },
+}
+
+/**
+ * Section index and its Japanese counterpart, used by the section headers.
+ * Neither value is localised, so they live outside `t` instead of being
+ * duplicated across both locales.
+ */
+export const sectionMeta = {
+  about:      { index: '01', ja: '私について' },
+  experience: { index: '02', ja: '経歴' },
+  skills:     { index: '03', ja: '技術' },
+  projects:   { index: '04', ja: '作品' },
+  contact:    { index: '05', ja: '連絡' },
 }

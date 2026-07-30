@@ -2,13 +2,14 @@
   position: relative;
   min-height: 100vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
   overflow: hidden;
-  padding: 8rem 2rem 4rem;
-  /* Fade hero into next section */
-  -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  padding: 6.5rem var(--section-px) var(--s8);
+  /* No bottom mask. It used to fade the hero into the next section, which was
+     harmless when the hero ended in empty space — but the composition now runs
+     copy, buttons and social links all the way down, and the gradient was
+     dissolving them. The glows below carry the transition instead. */
 }
 
 .hero__glow {
@@ -35,121 +36,225 @@
   right: 5%;
 }
 
+/* ── Centrepiece ──
+   Its own band in the flex column, so the space it occupies is space nothing
+   else can use. Absolute positioning is what let it land on the headline. */
+.hero__stage {
+  position: relative;
+  z-index: 0;
+  flex: 1;
+  min-height: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--s4) 0;
+}
+
+.hero__object {
+  position: relative;
+  width: min(42vh, 34vw, 440px);
+  aspect-ratio: 1;
+  pointer-events: none;
+  animation: objectFloat 14s ease-in-out infinite;
+}
+
+@keyframes objectFloat {
+  0%, 100% { transform: translateY(-8px); }
+  50%      { transform: translateY(8px); }
+}
+
+
+/* ── Corner metadata ── */
+.hero__corners {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--s6);
+}
+
+.hero__corner {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-left: 1px solid var(--hair);
+  padding-left: var(--s3);
+}
+
+.hero__corner--end {
+  text-align: right;
+  border-left: none;
+  border-right: 1px solid var(--hair);
+  padding-left: 0;
+  padding-right: var(--s3);
+  align-items: flex-end;
+}
+
+/* ── Main block ── */
 .hero__content {
   position: relative;
   z-index: 1;
-  max-width: 720px;
-  text-align: center;
+  width: 100%;
+}
+
+.hero__status-row {
+  display: flex;
+  align-items: center;
+  gap: var(--s4);
+  margin-bottom: var(--s3);
+}
+
+.hero__status {
+  color: var(--accent-cyan);
+  border-color: rgba(62, 204, 193, 0.32);
+  background: rgba(62, 204, 193, 0.06);
+}
+
+.hero__status-dot {
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  background: var(--accent-cyan);
+  box-shadow: 0 0 8px var(--accent-cyan);
+  animation: statusPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.35; }
+}
+
+.hero__ja {
+  font-size: clamp(1.1rem, 2.4vw, 1.75rem);
+  color: var(--text-secondary);
+  letter-spacing: 0.1em;
+  line-height: 1;
+  flex-shrink: 0;
 }
 
 .hero__greeting {
   font-family: var(--font-mono);
-  font-size: 0.85rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
   color: var(--accent-cyan);
-  margin-bottom: 1.25rem;
-  letter-spacing: 0.5px;
+  margin-bottom: var(--s3);
 }
 
 .mono {
   font-family: var(--font-mono);
 }
 
-.hero__name {
-  font-size: clamp(3rem, 7vw, 5.5rem);
-  font-weight: 800;
-  letter-spacing: -3px;
-  line-height: 1;
-  margin-bottom: 1rem;
-  color: var(--text-primary);
+/* The line above the display type, same role as "INDEPENDENT FRONTEND". */
+.hero__student {
+  font-family: var(--font-mono);
+  font-size: clamp(0.95rem, 2.2vw, 1.6rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  line-height: 1.2;
+  margin-bottom: var(--s1);
 }
 
-.hero__title {
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
-  font-weight: 400;
-  color: var(--text-muted);
-  margin-bottom: 2rem;
+/* Display scale, tracked tight, running the width of the column. */
+.hero__role {
+  font-size: clamp(1.9rem, 5.6vw, 8rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  /* If it ever does wrap, split it evenly rather than leaving one word
+     stranded on the second line. */
+  text-wrap: balance;
+}
+
+.hero__divider {
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-cyan) 45%, transparent 95%);
+  margin: var(--s4) 0 var(--s4);
+}
+
+/* Description on the left at a readable size, controls on the right. */
+.hero__lower {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: var(--s4) var(--s12);
+  align-items: start;
 }
 
 .hero__bio {
-  font-size: 1.05rem;
-  color: var(--text-secondary);
-  max-width: 540px;
-  margin: 0 auto 2.5rem;
-  line-height: 1.8;
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  color: var(--text-primary);
+  line-height: 1.7;
+  /* Keeps the measure inside a comfortable reading range at any width. */
+  max-width: 58ch;
+}
+
+/* The stack itself, lifted out of the sentence. This is the one place in the
+   hero where the accent marks content rather than structure. */
+.hero__bio strong {
+  font-weight: 600;
+  color: var(--accent-cyan);
+}
+
+.hero__side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
 }
 
 .hero__actions {
   display: flex;
-  gap: 0.75rem;
+  gap: var(--s3);
   flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 3rem;
-}
-
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: var(--tap);
-  padding: 0.7rem 1.6rem;
-  background: var(--accent);
-  color: white;
-  border-radius: 6px;
-  font-weight: 600;
-  font-size: 0.875rem;
-  transition: opacity 0.15s;
-}
-
-.btn-primary:hover {
-  opacity: 0.85;
-}
-
-.btn-ghost {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: var(--tap);
-  padding: 0.7rem 1.6rem;
-  border: 1px solid var(--border-subtle);
-  border-radius: 6px;
-  color: var(--text-secondary);
-  font-weight: 500;
-  font-size: 0.875rem;
-  transition: color 0.15s, border-color 0.15s;
-}
-
-.btn-ghost:hover {
-  color: var(--text-primary);
-  border-color: rgba(255,255,255,0.15);
 }
 
 .hero__socials {
   display: flex;
-  gap: 1rem;
-  justify-content: center;
+  align-items: center;
+  gap: var(--s3);
+}
+
+.hero__socials-label {
+  flex-shrink: 0;
 }
 
 .social-link {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Icon is 22px; pad out to a 44px tap target */
+  /* Icon is 20px; pad out to a 44px tap target */
   width: var(--tap);
   height: var(--tap);
-  border-radius: 8px;
-  color: var(--text-muted);
-  transition: color 0.15s, background 0.15s;
+  /* Was --hair-dim on --text-secondary, which left them barely present. These
+     are the only route to three of the four ways to reach him, so they get a
+     readable border and full-strength glyphs. */
+  border: 1px solid var(--hair);
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  transition:
+    color var(--dur-base) var(--ease),
+    border-color var(--dur-base) var(--ease),
+    background var(--dur-base) var(--ease);
 }
 
 .social-link:hover {
-  color: var(--text-primary);
+  background: var(--accent-cyan-glow);
 }
 
-/* ── Hero enter animations ── */
+.social-link:hover {
+  color: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+}
+
+/* ── Hero enter animations ──
+   One authored entrance, then the page settles. Held to the focal band
+   (640ms) with a short cascade rather than a slow one. */
 @keyframes heroFadeUp {
   from {
     opacity: 0;
-    transform: translateY(28px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -158,80 +263,62 @@
 }
 
 .hero__anim {
-  animation: heroFadeUp 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: heroFadeUp var(--dur-focal) var(--ease) both;
 }
-.hero__anim--1 { animation-delay: 0.1s; }
-.hero__anim--2 { animation-delay: 0.25s; }
-.hero__anim--3 { animation-delay: 0.4s; }
-.hero__anim--4 { animation-delay: 0.55s; }
-.hero__anim--5 { animation-delay: 0.7s; }
-.hero__anim--6 { animation-delay: 0.85s; }
-.hero__anim--7 { animation-delay: 1.05s; }
-
-/* ── Scroll-down cue ── */
-@keyframes scrollCueBounce {
-  0%, 100% { transform: translateY(0); opacity: 0.5; }
-  50%       { transform: translateY(6px); opacity: 1; }
-}
-
-.hero__scroll-cue {
-  position: absolute;
-  bottom: 2.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  color: var(--text-muted);
-  cursor: pointer;
-  text-decoration: none;
-  animation: scrollCueBounce 2s ease-in-out infinite;
-  transition: color 0.2s;
-}
-
-.hero__scroll-cue:hover {
-  color: var(--accent-cyan);
-}
-
-.hero__scroll-cue-line {
-  display: block;
-  width: 1px;
-  height: 28px;
-  background: linear-gradient(to bottom, transparent, currentColor);
-}
+.hero__anim--1 { animation-delay: 0.05s; }
+.hero__anim--2 { animation-delay: 0.12s; }
+.hero__anim--3 { animation-delay: 0.19s; }
+.hero__anim--4 { animation-delay: 0.26s; }
+.hero__anim--5 { animation-delay: 0.33s; }
+.hero__anim--6 { animation-delay: 0.40s; }
+.hero__anim--7 { animation-delay: 0.47s; }
 
 @media (prefers-reduced-motion: reduce) {
   .hero__anim { animation: none; opacity: 1; }
-  .hero__scroll-cue { animation: none; opacity: 0.6; }
+  .hero__status-dot { animation: none; }
+  .hero__object { animation: none; }
+}
+
+@media (max-width: 900px) {
+  /* Single column: the description no longer has room beside the controls. */
+  .hero__lower {
+    grid-template-columns: 1fr;
+    gap: var(--s6);
+  }
+
+  .hero__stage { min-height: 140px; }
+  .hero__object { width: min(34vh, 50vw, 340px); }
 }
 
 @media (max-width: 600px) {
   .hero {
-    padding: 7rem 1.25rem 3rem;
+    padding: 6rem var(--section-px) var(--s8);
     min-height: 100svh; /* avoid mobile URL-bar jump vs 100vh */
   }
 
-  /* Smaller floor + tighter tracking so the (non-wrapping) name never
-     clips or overflows on narrow phones */
-  .hero__name {
-    font-size: clamp(2.1rem, 12vw, 3.4rem);
-    letter-spacing: -1.5px;
+  /* Now the only block in the row, and the navbar already carries the
+     identity, so the whole row goes at phone width. */
+  .hero__corners { display: none; }
+
+  .hero__status-row { gap: var(--s3); margin-bottom: var(--s3); }
+
+  .hero__stage { min-height: 120px; padding: var(--s2) 0; }
+  .hero__object { width: min(28vh, 56vw, 250px); }
+
+  .hero__role {
+    font-size: clamp(1.9rem, 11vw, 3.2rem);
+    letter-spacing: -0.03em;
   }
 
-  .hero__bio { font-size: 1rem; }
+  .hero__student { font-size: 0.9rem; letter-spacing: 0.06em; }
 
-  /* Stack CTAs full-width — easier thumb targets than side-by-side pills */
+  /* Stack CTAs full-width — easier thumb targets than side-by-side buttons */
   .hero__actions {
     flex-direction: column;
     align-items: stretch;
-    gap: 0.6rem;
+    gap: var(--s2);
   }
 
   .hero__actions .btn-primary,
   .hero__actions .btn-ghost { width: 100%; }
-
-  /* The bouncing scroll cue tends to collide with stacked CTAs on short
-     mobile viewports — hide it there */
-  .hero__scroll-cue { display: none; }
 }

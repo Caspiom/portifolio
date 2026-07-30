@@ -92,7 +92,7 @@ export const t = {
       label: 'projects',
       title: 'Things I\'ve built',
       otherTitle: 'other stuff',
-      githubCta: 'All 29 repos on GitHub →',
+      githubCta: 'All 40 repos on GitHub →',
       prodBadge: 'Production · Real client',
       wipBadge: 'In development',
       items: [
@@ -264,7 +264,7 @@ export const t = {
       label: 'projetos',
       title: 'O que construí',
       otherTitle: 'outras coisas',
-      githubCta: 'Todos os 29 repos no GitHub →',
+      githubCta: 'Todos os 40 repos no GitHub →',
       prodBadge: 'Produção · Cliente real',
       wipBadge: 'Em desenvolvimento',
       items: [

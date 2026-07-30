@@ -20,8 +20,8 @@ $ curl -s https://api.github.com/users/Caspiom | jq .
 {
   "login": "Caspiom",
   "name": "Gaspari",
-  "public_repos": 29,
-  "followers": 13,
+  "public_repos": 40,
+  "followers": 20,
   "bio": "Coding in Java, Python, and Rust."
 }
 

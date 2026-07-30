@@ -64,7 +64,7 @@ export default function About() {
 
           <div className="about__stats">
             <StatCard index="01" target={3}  suffix="+" label={tx.stats.experience} delay="d2" />
-            <StatCard index="02" target={29} suffix="+" label={tx.stats.repos}      delay="d3" />
+            <StatCard index="02" target={40} suffix="+" label={tx.stats.repos}      delay="d3" />
             <StatCard index="03" target={5}  suffix="+" label={tx.stats.languages}  delay="d4" />
             <StatCard index="04" target={3}  suffix=""  label={tx.stats.cloud}      delay="d5" />
           </div>

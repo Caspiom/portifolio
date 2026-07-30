@@ -22,6 +22,18 @@
   transform: translateY(-8px);
 }
 
+/* Both `transform` and `backdrop-filter` make an element the containing block
+   for any `position: fixed` descendant. The mobile menu is exactly that, so
+   while the page was scrolled its `inset: 0` resolved against this bar instead
+   of the viewport: the overlay collapsed to the height of the navbar and the
+   page showed straight through it. Neither effect is visible with a full
+   screen panel covering the bar, so both come off while the menu is open. */
+body.nav-open .navbar {
+  transform: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
 /* Full-bleed, matching the hero. The old 1100px cap floated the identity
    block toward the middle of wide screens while the headline underneath ran
    to the page edge; now both start on the same left margin. */
@@ -209,7 +221,12 @@
   .navbar__links {
     display: none;
     position: fixed;
-    inset: 0;
+    inset: 0 0 auto 0;
+    /* Dynamic viewport height, not `inset: 0`. Fixed positioning resolves
+       against the large viewport, the one with the browser's address bar
+       hidden, so when that bar slides back in the bottom of the panel ends up
+       off screen and the centred items sit too low. `dvh` tracks the bar. */
+    height: 100dvh;
     border: none;
     background: rgba(8, 11, 20, 0.98);
     flex-direction: column;
@@ -217,6 +234,8 @@
     align-items: flex-start;
     gap: var(--s1);
     padding: var(--section-px);
+    /* Scrolling the panel must not chain through to the page behind it. */
+    overscroll-behavior: contain;
   }
 
   .navbar__links.open { display: flex; }

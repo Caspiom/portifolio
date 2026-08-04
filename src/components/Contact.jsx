@@ -61,11 +61,11 @@ export default function Contact() {
           </div>
 
           <div className="contact__cards">
-            <a href="mailto:lucasamsg6@gmail.com" className="contact-card tick reveal d2">
+            <a href="mailto:lucas@gaspari.dev" className="contact-card tick reveal d2">
               <div className="contact-card__icon"><MailIcon /></div>
               <div>
                 <div className="contact-card__label">{tx.emailLabel}</div>
-                <div className="contact-card__value">lucasamsg6@gmail.com</div>
+                <div className="contact-card__value">lucas@gaspari.dev</div>
               </div>
             </a>
 

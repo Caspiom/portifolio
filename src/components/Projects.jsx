@@ -13,9 +13,9 @@ const TEAL   = [62, 204, 193]
 const projectMeta = [
   // Client code, so there's no public repo — the card shows a production badge instead.
   { lang: 'Rust',   langColor: '#dea584', tags: ['Rust', 'Axum', 'Power BI', 'Entra ID', 'REST API'], repo: null, badge: 'prodBadge', featured: true },
-  // Not deployed yet, and both repos are private, so there is nothing to link
-  // to. The badge states where it actually stands.
-  { lang: 'Python', langColor: '#3572A5', tags: ['Python', 'FastAPI', 'Next.js', 'Playwright', 'Docker'], repo: null, badge: 'wipBadge', featured: true },
+  // Not deployed yet and the frontend repo is still private, so the card links
+  // to the backend repo. The badge states where it actually stands.
+  { lang: 'Python', langColor: '#3572A5', tags: ['Python', 'FastAPI', 'Next.js', 'Playwright', 'Docker'], repo: 'https://github.com/Caspiom/Deals-Bot', badge: 'wipBadge', featured: true },
   { lang: 'Java',   langColor: '#b07219', tags: ['Java', 'Spring Boot', 'React', 'Hackathon'], repo: 'https://github.com/Caspiom/HACKATHON-TJBA-2025', featured: true },
   { lang: 'Java',   langColor: '#b07219', tags: ['Java', 'Spring Boot', 'Microservices'], repo: 'https://github.com/Caspiom/eurekaServerMicrosServices', featured: true },
   { lang: 'Python', langColor: '#3572A5', tags: ['Python', 'Machine Learning', 'Math'], repo: 'https://github.com/Caspiom/Neural_Network_From_Scratch', featured: true },
